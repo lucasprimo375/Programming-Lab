@@ -22,49 +22,35 @@ int main(){
 
     print_vector(vector, size);
 
+    delete vector;
+
     return 0;
 }
 
 int* lomuto_partition(float* vector, int initial_index, int last_index){
-    float pivot = vector[last_index];
+    float pivot = vector[initial_index];
 
     int j = initial_index;
-    int equals_counter = 0;
-    for(int i=initial_index; i<last_index; i++){
-        if(vector[i] <= pivot){
-            if(vector[i] == pivot){
-                equals_counter++;
-            }
-
-            swap(&vector[i], &vector[j]);
+    int equal_index = initial_index;
+    for(int i=initial_index+1; i<=last_index; i++){
+        if(vector[i] < pivot){
+            int y = vector[i];
+            vector[i] = vector[equal_index+1];
+            vector[equal_index+1] = vector[j];
+            vector[j] = y;
             j++;
+            equal_index++;
+        } else if(vector[i] == pivot){
+            swap(&vector[i], &vector[equal_index+1]);
+            equal_index++;
         }
-    }
-
-    swap(&vector[j], &vector[last_index]);
-
-    int equals_counter_aux = equals_counter;
-    int j_aux = j-1;
-    int i = j-2;
-    while(i >= initial_index){
-        if(vector[i] == pivot){
-            move(vector, i, j_aux);
-            j_aux--;
-        }
-        i--;
     }
 
     int* pivot_index = new int[2];
-    pivot_index[0] = j-equals_counter;
-    pivot_index[1] = j;
+    pivot_index[0] = j;
+    pivot_index[1] = equal_index;
 
     return pivot_index;
-}
-
-void move(float* vector, int original_position, int new_position){
-    for(int i=original_position; i<new_position; i++){
-        swap(&vector[i], &vector[i+1]);
-    }
 }
 
 float* input_vector(int* size){
@@ -88,24 +74,13 @@ void quick_sort(float* vector, int initial_index, int last_index){
         int* pivot_index = lomuto_partition(vector, initial_index, last_index);
         quick_sort(vector, initial_index, pivot_index[0] - 1);
         quick_sort(vector, pivot_index[1] + 1, last_index);
+        delete pivot_index;
     }
 }
 
 void print_vector(float* vector, int size){
     for(int i=0; i<size; i++){
         if(i != size - 1){
-            std::cout << vector[i] << ", ";
-        } else {
-            std::cout << vector[i] << "." << std::endl;
-        }
-    }
-
-    std::cout << std::endl;
-}
-
-void print_sub_vector(float* vector, int initial_index, int last_index){
-    for(int i=initial_index; i<=last_index; i++){
-        if(i != last_index){
             std::cout << vector[i] << ", ";
         } else {
             std::cout << vector[i] << "." << std::endl;
