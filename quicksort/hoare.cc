@@ -25,11 +25,13 @@ int main(){
 }
 
 int hoare_partition(float* vector, int initial_index, int last_index, int i_index){
+	if(initial_index == last_index) return last_index;
+
 	float pivot = vector[last_index];
 
 	int j = initial_index;
 	for(int i=initial_index; i<last_index; i++){
-		if(vector[i] < pivot){
+		if(vector[i] <= pivot){
 			swap(&vector[i], &vector[j]);
 			j++;
 		}
@@ -41,35 +43,33 @@ int hoare_partition(float* vector, int initial_index, int last_index, int i_inde
 
 	if(i_index > j) return hoare_partition(vector, j+1, last_index, i_index);
 
-	if(i_index < j) return hoare_partition(vector, initial_index, j-1, i_index);
+	// i_index < j
+	return hoare_partition(vector, initial_index, j-1, i_index);
+}
+
+void quick_sort(float* vector, int initial_index, int last_index){
+	int size = last_index - initial_index + 1;
+	if(initial_index < last_index){
+		int pivot_index = hoare_partition(vector, initial_index, last_index, size/2);
+		quick_sort(vector, initial_index, pivot_index - 1);
+		quick_sort(vector, pivot_index + 1, last_index);
+	}
 }
 
 float* input_vector(int* size){
-	/*std::cout << "input vector size: ";
-	std::cin >> *size;*/
-	*size = 5;
+	std::cout << "input vector size: ";
+	std::cin >> *size;
 
 	float* aux = new float[*size];
 
 	for(int i=0; i<*size; i++){
-		/*std::cout << "input element " << i+1 << ": ";
-		std::cin >> aux[i];*/
-		aux[i] = (*size)-i;
+		std::cout << "input element " << i+1 << ": ";
+		std::cin >> aux[i];
 	}
 
-	//std::cout << std::endl;
+	std::cout << std::endl;
 
 	return aux;
-}
-
-void quick_sort(float* vector, int initial_index, int last_index){
-	int size = last_index-initial_index+1;
-	if((initial_index < last_index)){
-		int pivot_index = hoare_partition(vector, initial_index, last_index, size/2);
-		std::cout << (last_index-initial_index+1)/2 << std::endl;
-		/*quick_sort(vector, initial_index, pivot_index - 1);
-		quick_sort(vector, pivot_index + 1, last_index);*/
-	}
 }
 
 void print_vector(float* vector, int size){
