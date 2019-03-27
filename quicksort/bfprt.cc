@@ -5,7 +5,7 @@
 float* input_vector(int* size);
 void quick_sort(float* vector, int initial_index, int last_index);
 int bfprt_partition(float* vector, int initial_index, int last_index, int i_index);
-void bfprt_selection(float* vector, int initial_index, int last_index, int i_index);
+void bfprt_selection(float* vector, int initial_index, int last_index);
 int hoare_selection(float* vector, int initial_index, int last_index, int i_index);
 void swap(float* v1, float* v2);
 void print_vector(float* vector, int size);
@@ -18,7 +18,7 @@ int main(){
 
 	print_vector(vector, size);
 
-	bfprt_selection(vector, 0, size-1, std::floor(size/2));
+	bfprt_selection(vector, 0, size-1);
 
 	std::cout << "printing vector after ordering" << std::endl;
 
@@ -27,27 +27,76 @@ int main(){
 	return 0;
 }
 
-void bfprt_selection(float* vector, int initial_index, int last_index, int i_index){
+void bfprt_selection(float* vector, int initial_index, int last_index){
 	int size = last_index - initial_index + 1;
-	int x = bfprt_partition(vector, initial_index, last_index, std::floor(size/2) + initial_index);
 
-	std::cout << "the index is " << x << std::endl;
-	std::cout << "the value is " << vector[x] << std::endl;
+	if(size != 1){
+		int i_index = std::floor(size/2) + initial_index;
 
-	/*float pivot = vector[initial_index];
+		int approximate_median_index = bfprt_partition(vector, initial_index, last_index, i_index);
 
-    int j = initial_index;
-    for(int i=initial_index+1; i<=last_index; i++){
-        if(vector[i] < pivot){
-            int y = vector[i];
-            vector[i] = vector[equal_index+1];
-            vector[equal_index+1] = vector[j];
-            vector[j] = y;
-            j++;
-        } else if(vector[i] == pivot){
-            swap(&vector[i], &vector[equal_index+1]);
-        }
-    }*/
+		std::cout << "MEDIAN IS " << vector[approximate_median_index] << std::endl;
+
+		float pivot = vector[approximate_median_index];
+
+	    int r = initial_index;
+	    int s = initial_index;
+	    for(int i=initial_index+1; i<=last_index; i++){
+	        if(vector[i] < pivot){
+	            int y = vector[i];
+	            vector[i] = vector[s+1];
+	            vector[s+1] = vector[r];
+	            vector[r] = y;
+	            r++;
+	            s++;
+	        } else if(vector[i] == pivot){
+	            swap(&vector[i], &vector[s+1]);
+	            s++;
+	        }
+	    }
+
+	    //r++;
+
+	    std::cout << "i is " << i_index << ", with value "<< vector[i_index] << std::endl;
+	    std::cout << "r is " << r << ", with value "<< vector[r] << std::endl;
+	    std::cout << "s is " << s << ", with value "<< vector[s] << std::endl;
+
+	    if((i_index >= r) && (i_index <= s)){
+	    	std::cout << "FOUND" << std::endl;
+	    	//swap(&vector[i_index], &vector[i_index-1]);
+	    	//return;
+	    }
+
+	    if(i_index < r){
+	    	std::cout << "(IF 1): SEARCH FOR " << initial_index << " to " << r-1 << std::endl;
+	    	//bfprt_selection(vector, initial_index, r-1);
+	    	return;
+	    }
+
+	    if(i_index > s){
+	    	std::cout << "(IF 2): SEARCH FOR " << s+1 << " to " << last_index << std::endl;
+	    	//bfprt_selection(vector, s+1, last_index);
+	    	return;
+	    }
+	}
+}
+
+float* input_vector(int* size){
+	/*std::cout << "input vector size: ";
+	std::cin >> *size;*/
+	*size = 10;
+
+	float* aux = new float[*size];
+
+	for(int i=0; i<*size; i++){
+		/*std::cout << "input element " << i+1 << ": ";
+		std::cin >> aux[i];*/
+		aux[i] = (*size) - i;
+	}
+
+	//std::cout << std::endl;
+
+	return aux;
 }
 
 int bfprt_partition(float* vector, int initial_index, int last_index, int i_index){
@@ -102,24 +151,6 @@ int hoare_selection(float* vector, int initial_index, int last_index, int i_inde
 
 	// i_index < j
 	return hoare_selection(vector, initial_index, j-1, i_index);
-}
-
-float* input_vector(int* size){
-	/*std::cout << "input vector size: ";
-	std::cin >> *size;*/
-	*size = 11;
-
-	float* aux = new float[*size];
-
-	for(int i=0; i<*size; i++){
-		/*std::cout << "input element " << i+1 << ": ";
-		std::cin >> aux[i];*/
-		aux[i] = (*size) - i;
-	}
-
-	//std::cout << std::endl;
-
-	return aux;
 }
 
 void print_vector(float* vector, int size){
