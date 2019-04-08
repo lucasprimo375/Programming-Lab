@@ -4,7 +4,7 @@
 
 float* input_vector(int* size);
 void quick_sort(float* vector, int initial_index, int last_index);
-int bfprt_partition(float* vector, int initial_index, int last_index, int i_index);
+int bfprt_partition(float* vector, int initial_index, int last_index);
 void bfprt_selection(float* vector, int initial_index, int last_index);
 int hoare_selection(float* vector, int initial_index, int last_index, int i_index);
 void swap(float* v1, float* v2);
@@ -27,13 +27,52 @@ int main(){
 	return 0;
 }
 
-void bfprt_selection(float* vector, int initial_index, int last_index){
+int bfprt_partition(float* vector, int initial_index, int last_index){
 	int size = last_index - initial_index + 1;
+
+	if(size <= 5){
+		return hoare_selection(vector, initial_index, last_index, std::floor(size/2) + initial_index);
+	}
+
+
+	int median_position = initial_index;
+	for(int i = initial_index; i <= last_index; i = i + 5){
+		int median_index = bfprt_partition(vector, i, std::min(i + 4, last_index));
+		swap(&vector[median_index], &vector[median_position]);
+		median_position++;
+	}
+
+	int last_median_index = median_position - 1;
+
+	return bfprt_partition(vector, initial_index, last_median_index);
+}
+
+void bfprt_selection(float* vector, int initial_index, int last_index){
+	int approximate_median_index = bfprt_partition(vector, initial_index, last_index);
+
+	float pivot = vector[approximate_median_index];
+
+	print_vector(vector, last_index - initial_index + 1);
+
+	std::cout << "the pivot is " << pivot << std::endl;
+
+	int j = initial_index;
+	for(int i=initial_index; i<last_index; i++){
+		if(vector[i] < pivot){
+			std::cout << vector[i] << " < " << pivot << std::endl;
+			swap(&vector[i], &vector[j]);
+			j++;
+		}
+	}
+
+	swap(&vector[j], &vector[last_index]);
+
+	/*int size = last_index - initial_index + 1;
 
 	if(size != 1){
 		int i_index = std::floor(size/2) + initial_index;
 
-		int approximate_median_index = bfprt_partition(vector, initial_index, last_index, i_index);
+		int approximate_median_index = bfprt_partition(vector, initial_index, last_index);
 
 		std::cout << "MEDIAN IS " << vector[approximate_median_index] << std::endl;
 
@@ -78,7 +117,7 @@ void bfprt_selection(float* vector, int initial_index, int last_index){
 	    	//bfprt_selection(vector, s+1, last_index);
 	    	return;
 	    }
-	}
+	}*/
 }
 
 float* input_vector(int* size){
@@ -99,30 +138,10 @@ float* input_vector(int* size){
 	return aux;
 }
 
-int bfprt_partition(float* vector, int initial_index, int last_index, int i_index){
-	int size = last_index - initial_index + 1;
-
-	if(size <= 5){
-		return hoare_selection(vector, initial_index, last_index, std::floor(size/2) + initial_index);
-	}
-
-
-	int median_position = initial_index;
-	for(int i = initial_index; i <= last_index; i = i + 5){
-		int median_index = bfprt_partition(vector, i, std::min(i + 4, last_index), i_index);
-		swap(&vector[median_index], &vector[median_position]);
-		median_position++;
-	}
-
-	int last_median_index = median_position - 1;
-
-	return bfprt_partition(vector, initial_index, last_median_index, std::floor(size/2) + initial_index);
-}
-
 void quick_sort(float* vector, int initial_index, int last_index){
 	int size = last_index - initial_index + 1;
 	if(initial_index < last_index){
-		int pivot_index = bfprt_partition(vector, initial_index, last_index, std::floor(size/2));
+		int pivot_index = bfprt_partition(vector, initial_index, last_index);
 		std::cout << "the pivot index is " << pivot_index << std::endl;
 		std::cout << "the pivot is " << vector[pivot_index] << std::endl;
 		/*quick_sort(vector, initial_index, pivot_index - 1);
