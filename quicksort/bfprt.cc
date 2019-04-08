@@ -50,7 +50,9 @@ int bfprt_partition(float* vector, int initial_index, int last_index){
 void bfprt_selection(float* vector, int initial_index, int last_index){
 	int approximate_median_index = bfprt_partition(vector, initial_index, last_index);
 
-	float pivot = vector[approximate_median_index];
+	swap(&vector[last_index], &vector[approximate_median_index]);
+
+	float pivot = vector[last_index];
 
 	print_vector(vector, last_index - initial_index + 1);
 
