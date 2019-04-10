@@ -11,6 +11,5 @@ int main() {
 		int* vector = generate_random_instance(size, limits[0], limits[1]);
 		print_vector(vector, size);
 
-		std::cout << "the vector is " << (is_vector_sorted(vector, size) ? "" : "not") << " sorted" << std::endl;
 	} while(should_continue());
 }

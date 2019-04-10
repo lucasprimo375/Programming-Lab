@@ -18,16 +18,6 @@ int* generate_random_instance(int size, float min_value, float max_value){
 	return vector;
 }
 
-bool is_vector_sorted(int* vector, int size){
-	for(int i=1; i<size; i++){
-		if(vector[i] < vector[i-1]){
-			return false;
-		}
-	}
-
-	return true;
-}
-
 void print_vector(int* vector, int size){
 	for(int i=0; i<size; i++){
 		if(i != size-1){
