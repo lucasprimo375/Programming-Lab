@@ -6,9 +6,12 @@ public:
 	GenericQuickSort(int* vector, int size);
 	~GenericQuickSort();
 	virtual void sort() = 0;
-	bool is_vector_sorted(int* vector, int size);
+	bool is_vector_sorted();
+	int* get_vector();
+
 protected:
 	virtual int choose_pivot(int initial_index, int last_index);
+	void swap(int* v1, int* v2);
 
 	int* vector_;
 	int size_;

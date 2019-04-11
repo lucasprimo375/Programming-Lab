@@ -9,6 +9,8 @@ public:
 	~IndexBasedQuickSort();
 	void sort();
 protected:
+	void quick_sort(int initial_index, int last_index);
+	int partition(int initial_index, int last_index);
 
 private:
 };
