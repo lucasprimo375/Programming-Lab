@@ -16,7 +16,7 @@ int main() {
 		int* vector = generate_random_instance(size, limits[0], limits[1]);
 
 		std::cout << "Printing unsorted vector" << std::endl;
-		print_vector(vector, size);
+		//print_vector(vector, size);
 
 		int* index_based_quick_sort_vector = copy_vector(vector, size);
 		int* random_pivot_quick_sort_vector = copy_vector(vector, size);
@@ -25,7 +25,7 @@ int main() {
 		generic_quick_sort->sort();
 		std::cout << "Index Based Quick Sort has " << (generic_quick_sort->is_vector_sorted() ? "" : "not ") << "sorted the vector" << std::endl;
 		std::cout << "Printing sorted vector" << std::endl;
-		print_vector(generic_quick_sort->get_vector(), size);
+		//print_vector(generic_quick_sort->get_vector(), size);
 		delete generic_quick_sort;
 
 		std::cout << std::endl;
@@ -34,7 +34,7 @@ int main() {
 		generic_quick_sort->sort();
 		std::cout << "Random Pivot Quick Sort has " << (generic_quick_sort->is_vector_sorted() ? "" : "not ") << "sorted the vector" << std::endl;
 		std::cout << "Printing sorted vector" << std::endl;
-		print_vector(generic_quick_sort->get_vector(), size);
+		//print_vector(generic_quick_sort->get_vector(), size);
 		delete generic_quick_sort;
 
 	} while(should_continue());

@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "index_based_quick_sort.h"
 
 IndexBasedQuickSort::IndexBasedQuickSort(int* vector, int size) : GenericQuickSort(vector, size){}
@@ -5,7 +7,13 @@ IndexBasedQuickSort::IndexBasedQuickSort(int* vector, int size) : GenericQuickSo
 IndexBasedQuickSort::~IndexBasedQuickSort(){}
 
 void IndexBasedQuickSort::sort() {
+	start_time_ = get_time_seconds();
+
 	quick_sort(0, size_ - 1);
+
+	finish_time_ = get_time_seconds();
+
+	std::cout << "The run time of Index Based Quick Sort is " << (finish_time_ - start_time_)/1000.0 << " seconds" << std::endl;
 }
 
 void IndexBasedQuickSort::quick_sort(int initial_index, int last_index){

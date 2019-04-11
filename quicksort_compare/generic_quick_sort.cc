@@ -1,3 +1,7 @@
+#include <ctime>
+#include <iostream>
+#include <chrono>
+
 #include "generic_quick_sort.h"
 
 GenericQuickSort::GenericQuickSort(int* vector, int size) {
@@ -34,5 +38,7 @@ int* GenericQuickSort::get_vector(){
 }
 
 int GenericQuickSort::get_time_seconds(){
-	return 0;
+	std::chrono::milliseconds ms = std::chrono::duration_cast< std::chrono::milliseconds >(std::chrono::system_clock::now().time_since_epoch());
+	
+	return ms.count();
 }

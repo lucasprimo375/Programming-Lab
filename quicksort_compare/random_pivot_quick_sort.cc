@@ -18,7 +18,13 @@ int RandomPivotQuickSort::choose_pivot(int initial_index, int last_index){
 }
 
 void RandomPivotQuickSort::sort(){
+	start_time_ = get_time_seconds();
+
 	quick_sort(0, size_ - 1);
+
+	finish_time_ = get_time_seconds();
+
+	std::cout << "The run time of Random Pivot Quick Sort is " << (finish_time_ - start_time_)/1000.0 << " seconds" << std::endl;
 }
 
 void RandomPivotQuickSort::quick_sort(int initial_index, int last_index){
@@ -31,8 +37,6 @@ void RandomPivotQuickSort::quick_sort(int initial_index, int last_index){
 
 int RandomPivotQuickSort::partition(int initial_index, int last_index){
 	int random_index = choose_pivot(initial_index, last_index);
-
-	std::cout << "RANDOM PIVOT IS vector[" << random_index << "] = " << vector_[random_index] << std::endl;
 
 	swap(&vector_[random_index], &vector_[last_index]);
 

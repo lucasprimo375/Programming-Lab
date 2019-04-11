@@ -11,7 +11,7 @@ index_based_quick_sort.o: index_based_quick_sort.cc index_based_quick_sort.h gen
 	g++ -c index_based_quick_sort.cc
 
 generic_quick_sort.o: generic_quick_sort.cc generic_quick_sort.h
-	g++ -c generic_quick_sort.cc
+	g++ -c generic_quick_sort.cc -std=c++11
 
 utils.o: utils.cc utils.h
 	g++ -c utils.cc -std=c++11

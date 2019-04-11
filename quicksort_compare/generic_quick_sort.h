@@ -14,8 +14,8 @@ protected:
 	void swap(int* v1, int* v2);
 	int get_time_seconds();
 
-	int start_time;
-	int finish_time;
+	unsigned long int start_time_;
+	unsigned long int finish_time_;
 
 	int* vector_;
 	int size_;
