@@ -12,6 +12,10 @@ public:
 protected:
 	virtual int choose_pivot(int initial_index, int last_index);
 	void swap(int* v1, int* v2);
+	int get_time_seconds();
+
+	int start_time;
+	int finish_time;
 
 	int* vector_;
 	int size_;

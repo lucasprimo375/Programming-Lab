@@ -32,3 +32,7 @@ void GenericQuickSort::swap(int* v1, int* v2){
 int* GenericQuickSort::get_vector(){
 	return vector_;
 }
+
+int GenericQuickSort::get_time_seconds(){
+	return 0;
+}
