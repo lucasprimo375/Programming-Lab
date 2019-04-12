@@ -4,7 +4,7 @@
 
 #include "utils.h"
 
-int* generate_random_instance(int size, float min_value, float max_value){
+int* generate_random_instance(int size, int min_value, int max_value){
 	std::random_device rd;
 	
 	std::mt19937 ger(rd());

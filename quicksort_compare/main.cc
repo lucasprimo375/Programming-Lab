@@ -20,8 +20,6 @@ int main() {
 		//print_vector(vector, size);
 
 		int* index_based_quick_sort_vector = copy_vector(vector, size);
-		int* random_pivot_quick_sort_vector = copy_vector(vector, size);
-		int* pointer_based_quick_sort_vector = copy_vector(vector, size);
 
 		std::cout << std::endl;
 
@@ -34,6 +32,7 @@ int main() {
 
 		std::cout << std::endl;
 
+		int* random_pivot_quick_sort_vector = copy_vector(vector, size);
 		generic_quick_sort = new RandomPivotQuickSort(random_pivot_quick_sort_vector, size);
 		generic_quick_sort->sort();
 		std::cout << "Random Pivot Quick Sort has " << (generic_quick_sort->is_vector_sorted() ? "" : "not ") << "sorted the vector" << std::endl;
@@ -43,6 +42,7 @@ int main() {
 
 		std::cout << std::endl;
 
+		int* pointer_based_quick_sort_vector = copy_vector(vector, size);
 		generic_quick_sort = new PointerBasedQuickSort(pointer_based_quick_sort_vector, size);
 		generic_quick_sort->sort();
 		std::cout << "Pointer Based Quick Sort has " << (generic_quick_sort->is_vector_sorted() ? "" : "not ") << "sorted the vector" << std::endl;
