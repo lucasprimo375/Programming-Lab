@@ -1,5 +1,6 @@
 #include <random>
 #include <iostream>
+#include <time.h>
 
 #include "utils.h"
 
@@ -36,4 +37,10 @@ int* copy_vector(int* vector, int size){
 	}
 
 	return copy;
+}
+
+int generate_random_number(int min_value, int max_value){
+	srand(time(nullptr));
+
+	return min_value + (rand() % (max_value - min_value + 1));
 }

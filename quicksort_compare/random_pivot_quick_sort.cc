@@ -1,20 +1,14 @@
-#include <random>
 #include <iostream>
 
 #include "random_pivot_quick_sort.h"
+#include "utils.h"
 
 RandomPivotQuickSort::RandomPivotQuickSort(int* vector, int size) : GenericQuickSort(vector, size){}
 
 RandomPivotQuickSort::~RandomPivotQuickSort(){}
 
 int RandomPivotQuickSort::choose_pivot(int initial_index, int last_index){
-	std::random_device rd;
-	
-	std::mt19937 ger(rd());
-
-	std::uniform_int_distribution<int> dis(initial_index, last_index);
-
-	return dis(ger);
+	return generate_random_number(initial_index, last_index);	
 }
 
 void RandomPivotQuickSort::sort(){
