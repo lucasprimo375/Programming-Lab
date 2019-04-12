@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cmath>
 #include <algorithm>
+#include <time.h>
 
 float* input_vector(int* size);
 void quick_sort(float* vector, int initial_index, int last_index);
@@ -34,10 +35,11 @@ int bfprt_partition(float* vector, int initial_index, int last_index){
 		return hoare_selection(vector, initial_index, last_index, std::floor(size/2) + initial_index);
 	}
 
-
 	int median_position = initial_index;
 	for(int i = initial_index; i <= last_index; i = i + 5){
-		int median_index = bfprt_partition(vector, i, std::min(i + 4, last_index));
+		int j = std::min(i + 4, last_index);
+		int size = j - i + 1;
+		int median_index = hoare_selection(vector, i, j, std::floor(size/2) + i);
 		swap(&vector[median_index], &vector[median_position]);
 		median_position++;
 	}
@@ -90,9 +92,12 @@ float* input_vector(int* size){
 
 	float* aux = new float[*size];
 
+	srand(time(nullptr));
+
 	for(int i=0; i<*size; i++){
-		std::cout << "input element " << i+1 << ": ";
-		std::cin >> aux[i];
+		/*std::cout << "input element " << i+1 << ": ";
+		std::cin >> aux[i];*/
+		aux[i] = rand()%(1000+1);
 	}
 
 	std::cout << std::endl;
