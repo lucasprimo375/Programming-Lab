@@ -97,9 +97,9 @@ float* input_vector(int* size){
 void quick_sort(float* vector, int initial_index, int last_index){
 	int size = last_index - initial_index + 1;
 	if(initial_index < last_index){
-		int index = bfprt_partition(vector, initial_index, last_index, initial_index + std::floor(size/2));
-		quick_sort(vector, initial_index, initial_index + std::floor(size/2) - 1);
-		quick_sort(vector, initial_index + std::floor(size/2) + 1, last_index);
+		int median_index = bfprt_partition(vector, initial_index, last_index, initial_index + std::floor(size/2));
+		quick_sort(vector, initial_index, median_index - 1);
+		quick_sort(vector, median_index + 1, last_index);
 	}
 }
 
