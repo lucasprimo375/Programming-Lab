@@ -5,7 +5,7 @@
 
 class MemoryQuickSort : public GenericQuickSort {
 public:
-	MemoryQuickSort(int* vector, int size);
+	MemoryQuickSort(int* vector, int size, bool is_bad_instance);
 	~MemoryQuickSort();
 	void sort();
 

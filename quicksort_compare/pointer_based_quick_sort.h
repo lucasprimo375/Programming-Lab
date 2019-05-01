@@ -5,7 +5,7 @@
 
 class PointerBasedQuickSort : public GenericQuickSort {
 public:
-	PointerBasedQuickSort(int* vector, int size);
+	PointerBasedQuickSort(int* vector, int size, bool is_bad_instance);
 	~PointerBasedQuickSort();
 	void sort();
 

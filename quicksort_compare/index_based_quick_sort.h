@@ -5,7 +5,7 @@
 
 class IndexBasedQuickSort : public GenericQuickSort {
 public:
-	IndexBasedQuickSort(int* vector, int size);
+	IndexBasedQuickSort(int* vector, int size, bool is_bad_instance);
 	~IndexBasedQuickSort();
 	void sort();
 protected:

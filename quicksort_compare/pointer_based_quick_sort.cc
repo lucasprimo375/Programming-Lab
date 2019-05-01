@@ -2,7 +2,7 @@
 
 #include "pointer_based_quick_sort.h"
 
-PointerBasedQuickSort::PointerBasedQuickSort(int* vector, int size) : GenericQuickSort(vector, size){}
+PointerBasedQuickSort::PointerBasedQuickSort(int* vector, int size, bool is_bad_instance) : GenericQuickSort(vector, size, is_bad_instance){}
 
 PointerBasedQuickSort::~PointerBasedQuickSort(){}
 

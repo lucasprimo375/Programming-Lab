@@ -5,7 +5,7 @@
 
 class RandomPivotQuickSort : public GenericQuickSort {
 public:
-	RandomPivotQuickSort(int* vector, int size);
+	RandomPivotQuickSort(int* vector, int size, bool is_bad_instance);
 	~RandomPivotQuickSort();
 	void sort();
 

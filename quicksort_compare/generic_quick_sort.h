@@ -3,7 +3,7 @@
 
 class GenericQuickSort {
 public:
-	GenericQuickSort(int* vector, int size);
+	GenericQuickSort(int* vector, int size, bool is_bad_instance);
 	~GenericQuickSort();
 	virtual void sort() = 0;
 	bool is_vector_sorted();
@@ -13,6 +13,8 @@ protected:
 	virtual int choose_pivot(int initial_index, int last_index);
 	void swap(int* v1, int* v2);
 	int get_time_seconds();
+
+	void generate_bad_instance();
 
 	unsigned long int start_time_;
 	unsigned long int finish_time_;

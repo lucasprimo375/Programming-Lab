@@ -3,7 +3,7 @@
 
 #include "bfprt_quick_sort.h"
 
-BfprtQuickSort::BfprtQuickSort(int* vector, int size) : GenericQuickSort(vector, size){}
+BfprtQuickSort::BfprtQuickSort(int* vector, int size, bool is_bad_instance) : GenericQuickSort(vector, size, is_bad_instance){}
 
 BfprtQuickSort::~BfprtQuickSort(){}
 

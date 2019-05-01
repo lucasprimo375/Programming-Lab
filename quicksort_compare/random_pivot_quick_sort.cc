@@ -3,7 +3,7 @@
 #include "random_pivot_quick_sort.h"
 #include "utils.h"
 
-RandomPivotQuickSort::RandomPivotQuickSort(int* vector, int size) : GenericQuickSort(vector, size){}
+RandomPivotQuickSort::RandomPivotQuickSort(int* vector, int size, bool is_bad_instance) : GenericQuickSort(vector, size, is_bad_instance){}
 
 RandomPivotQuickSort::~RandomPivotQuickSort(){}
 

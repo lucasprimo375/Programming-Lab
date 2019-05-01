@@ -2,7 +2,7 @@
 
 #include "memory_quick_sort.h"
 
-MemoryQuickSort::MemoryQuickSort(int* vector, int size) : GenericQuickSort(vector, size) {}
+MemoryQuickSort::MemoryQuickSort(int* vector, int size, bool is_bad_instance) : GenericQuickSort(vector, size, is_bad_instance) {}
 
 MemoryQuickSort::~MemoryQuickSort() {}
 

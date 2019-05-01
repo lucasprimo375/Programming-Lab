@@ -5,7 +5,7 @@
 
 class BfprtQuickSort : public GenericQuickSort {
 public:
-	BfprtQuickSort(int* vector, int size);
+	BfprtQuickSort(int* vector, int size, bool is_bad_instance);
 	~BfprtQuickSort();
 	void sort();
 

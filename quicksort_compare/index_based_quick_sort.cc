@@ -2,7 +2,7 @@
 
 #include "index_based_quick_sort.h"
 
-IndexBasedQuickSort::IndexBasedQuickSort(int* vector, int size) : GenericQuickSort(vector, size){}
+IndexBasedQuickSort::IndexBasedQuickSort(int* vector, int size, bool is_bad_instance) : GenericQuickSort(vector, size, is_bad_instance){}
 
 IndexBasedQuickSort::~IndexBasedQuickSort(){}
 
