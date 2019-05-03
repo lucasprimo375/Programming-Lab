@@ -14,33 +14,45 @@ int main() {
 	GenericQuickSort* generic_quick_sort;
 
 	do {
+
 		int size = get_vector_size();
-		int* limits = get_min_max_values();
-		int* vector = generate_random_instance(size, limits[0], limits[1]);
+	
+		int* vector;
 
-		std::cout << "Printing unsorted vector" << std::endl;
-		print_vector(vector, size);
+		bool generate_bad_instance = should_generate_bad_instance();
+		if(!generate_bad_instance){
+			int* limits = get_min_max_values();
+			vector = generate_random_instance(size, limits[0], limits[1]);
+		}
 
-		int* index_based_quick_sort_vector = copy_vector(vector, size);
+		/*std::cout << "Printing unsorted vector" << std::endl;
+		print_vector(vector, size);*/
+
+		int* index_based_quick_sort_vector;
+		if(!generate_bad_instance){
+			index_based_quick_sort_vector = copy_vector(vector, size);
+		} else {
+			index_based_quick_sort_vector = new int[size];
+		}
 
 		std::cout << std::endl;
 
-		generic_quick_sort = new IndexBasedQuickSort(index_based_quick_sort_vector, size, false);
+		generic_quick_sort = new IndexBasedQuickSort(index_based_quick_sort_vector, size, generate_bad_instance);
 		generic_quick_sort->sort();
 		std::cout << "Index Based Quick Sort has " << (generic_quick_sort->is_vector_sorted() ? "" : "not ") << "sorted the vector" << std::endl;
 		delete generic_quick_sort;
 
 		std::cout << std::endl;
 
-		int* random_pivot_quick_sort_vector = copy_vector(vector, size);
-		generic_quick_sort = new RandomPivotQuickSort(random_pivot_quick_sort_vector, size, false);
+		/*int* random_pivot_quick_sort_vector = copy_vector(vector, size);
+		generic_quick_sort = new RandomPivotQuickSort(random_pivot_quick_sort_vector, size, generate_bad_instance);
 		generic_quick_sort->sort();
 		std::cout << "Random Pivot Quick Sort has " << (generic_quick_sort->is_vector_sorted() ? "" : "not ") << "sorted the vector" << std::endl;		delete generic_quick_sort;
 
 		std::cout << std::endl;
 
 		int* pointer_based_quick_sort_vector = copy_vector(vector, size);
-		generic_quick_sort = new PointerBasedQuickSort(pointer_based_quick_sort_vector, size, false);
+		generic_quick_sort = new PointerBasedQuickSort(pointer_based_quick_sort_vector, size, generate_bad_instance);
 		generic_quick_sort->sort();
 		std::cout << "Pointer Based Quick Sort has " << (generic_quick_sort->is_vector_sorted() ? "" : "not ") << "sorted the vector" << std::endl;
 		delete generic_quick_sort;
@@ -48,7 +60,7 @@ int main() {
 		std::cout << std::endl;
 
 		int* memory_quick_sort_vector = copy_vector(vector, size);
-		generic_quick_sort = new MemoryQuickSort(memory_quick_sort_vector, size, false);
+		generic_quick_sort = new MemoryQuickSort(memory_quick_sort_vector, size, generate_bad_instance);
 		generic_quick_sort->sort();
 		std::cout << "Memory Quick Sort has " << (generic_quick_sort->is_vector_sorted() ? "" : "not ") << "sorted the vector" << std::endl;
 		delete generic_quick_sort;
@@ -56,12 +68,12 @@ int main() {
 		std::cout << std::endl;
 
 		int* bfprt_quick_sort_vector = copy_vector(vector, size);
-		generic_quick_sort = new BfprtQuickSort(bfprt_quick_sort_vector, size, false);
+		generic_quick_sort = new BfprtQuickSort(bfprt_quick_sort_vector, size, generate_bad_instance);
 		generic_quick_sort->sort();
 		std::cout << "BFPRT Quick Sort has " << (generic_quick_sort->is_vector_sorted() ? "" : "not ") << "sorted the vector" << std::endl;
 		delete generic_quick_sort;
 
-		std::cout << std::endl;
+		std::cout << std::endl;*/
 
 	} while(should_continue());
 }

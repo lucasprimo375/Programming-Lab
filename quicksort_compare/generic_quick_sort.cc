@@ -6,10 +6,9 @@
 
 GenericQuickSort::GenericQuickSort(int* vector, int size, bool is_bad_instance) {
 	size_ = size;
+	vector_ = vector;
 
-	if(!is_bad_instance){
-		vector_ = vector;	
-	} else {
+	if(is_bad_instance){
 		generate_bad_instance();
 	}
 }
@@ -50,22 +49,22 @@ int GenericQuickSort::get_time_seconds(){
 	return ms.count();
 }
 
-void GenericQuickSort::generate_bad_instance() {
+void GenericQuickSort::generate_bad_instance() {	
 	int* pos = new int[size_];
 
-	for(int i = 0; i < size_; i++) {
+	for(int i = 0; i < size_; i++) {	
 		pos[i] = i;
 	}
 
 	for(int i = size_-1; i != -1; i--) {
       	int pivot_index = choose_pivot(0, i);
-      	
+
       	vector_[ pos[pivot_index] ] = i;
 
       	swap( &pos[pivot_index], &pos[0] );
-
+	
       	swap( &pos[0], &pos[i] );
- 	}
+	}
 
  	delete [] pos;
 }

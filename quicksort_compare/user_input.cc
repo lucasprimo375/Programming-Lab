@@ -1,5 +1,7 @@
 #include "user_input.h"
+
 #include <iostream>
+#include <string>
 
 int get_vector_size(){
 	int vector_size = 0;
@@ -44,4 +46,16 @@ bool should_continue(){
 	std::cin >> number;
 
 	return number > 0;
+}
+
+bool should_generate_bad_instance() {
+	std::string input = "";
+
+	while((input != "yes") && (input != "no")){
+		std::cout << "Generate bad instances? (yes/no)" << std::endl
+					<< ">> ";
+		std::cin >> input;
+	}
+
+	return input == "yes";
 }
