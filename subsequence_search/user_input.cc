@@ -1,0 +1,82 @@
+#include <iostream>
+
+#include "user_input.h"
+
+InstanceType get_instance_type(){
+	int type = -1;
+
+	while((type < 0) || (type > 3)){
+		std::cout << "Input intance type (0-Random, 1-WorstCase1, 2-WorstCase2, 3-RealText)" << std::endl
+					<< ">> ";
+
+		std::cin >> type;
+	}
+
+	switch(type){
+		case 0: return Random;
+		
+		case 1:	return WorstCase1;
+
+		case 2: return WorstCase2;
+
+		case 3: return RealText;
+		
+		default: return Random;
+	}
+}
+
+int get_text_size(){
+	int text_size = 0;
+
+	while(text_size <= 0){
+		std::cout << "Input text size: " << std::endl
+					<< ">> ";
+
+		std::cin >> text_size;
+	}
+
+	return text_size;
+}
+
+int get_pattern_size(){
+	int pattern_size = 0;
+
+	while(pattern_size <= 0){
+		std::cout << "Input pattern size: " << std::endl
+					<< ">> ";
+
+		std::cin >> pattern_size;
+	}
+
+	return pattern_size;
+}
+
+int* get_text_and_pattern_size(){
+	int text_size = 1;
+	int pattern_size = 2;
+
+	while(text_size < pattern_size){
+		text_size = get_text_size();
+		pattern_size = get_pattern_size();
+	}
+
+	int* sizes = new int[2];
+
+	sizes[0] = text_size;
+	sizes[1] = pattern_size;
+
+	return sizes;
+}
+
+int get_pattern_limit(){
+	int limit = 0;
+
+	while(limit <= 0){
+		std::cout << "Input the pattern limit: " << std::endl
+					<< ">> ";
+
+		std::cin >> limit;
+	}
+
+	return limit;
+}
