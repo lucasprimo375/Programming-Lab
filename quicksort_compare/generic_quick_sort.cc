@@ -19,10 +19,8 @@ GenericQuickSort::~GenericQuickSort(){
 
 bool GenericQuickSort::is_vector_sorted() {
 	for(int i=1; i<size_; i++){
-		for(int j=0; j<i; j++){
-			if(vector_[i] < vector_[j]){
-				return false;
-			}
+		if(vector_[i] < vector_[i-1]){
+			return false;
 		}
 	}
 
