@@ -42,7 +42,7 @@ int bfprt_partition(float* vector, int initial_index, int last_index, int i_inde
 
 		int new_last_index = median_position - 1;
 
-		int median_of_medians_index = bfprt_partition(vector, initial_index, new_last_index, i_index);
+		int median_of_medians_index = bfprt_partition(vector, initial_index, new_last_index, initial_index + std::floor((new_last_index - initial_index + 1)/2));
 
 		swap(&vector[initial_index], &vector[median_of_medians_index]);
 

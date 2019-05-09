@@ -47,7 +47,7 @@ int BfprtQuickSort::bfprt_partition(int initial_index, int last_index, int i_ind
 
 		int new_last_index = median_position - 1;
 
-		int median_of_medians_index = bfprt_partition(initial_index, new_last_index, i_index);
+		int median_of_medians_index = bfprt_partition(initial_index, new_last_index, initial_index + std::floor((new_last_index - initial_index + 1)/2));
 
 		swap(&vector_[initial_index], &vector_[median_of_medians_index]);
 
