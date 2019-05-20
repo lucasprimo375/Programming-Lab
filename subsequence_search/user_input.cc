@@ -6,7 +6,7 @@ InstanceType get_instance_type(){
 	int type = -1;
 
 	while((type < 0) || (type > 3)){
-		std::cout << "Input intance type (0-Random, 1-WorstCase1, 2-WorstCase2, 3-RealText)" << std::endl
+		std::cout << "Input intance type (0-Random, 1-Worst Case 1, 2-Worst Case 2, 3-Real Text)" << std::endl
 					<< ">> ";
 
 		std::cin >> type;
@@ -79,4 +79,20 @@ int get_pattern_limit(){
 	}
 
 	return limit;
+}
+
+void main_loop() {
+	InstanceType instance_type = get_instance_type();
+
+	if( instance_type != RealText ) {
+		int* sizes = get_text_and_pattern_size();
+	} else {
+		
+	}
+
+	/*switch(instance_type){
+		case Random:
+
+			break;
+	}*/
 }

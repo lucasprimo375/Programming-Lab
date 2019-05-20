@@ -3,7 +3,7 @@
 #include "user_input.h"
 
 int main(){
-	get_text_and_pattern_size();
+	get_instance_type();
 
 	return 0;
 }
