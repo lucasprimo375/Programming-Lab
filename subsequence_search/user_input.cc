@@ -71,12 +71,25 @@ int* get_text_and_pattern_size(){
 int get_pattern_limit(){
 	int limit = 0;
 
-	while(limit <= 0){
-		std::cout << "Input the pattern limit: " << std::endl
+	while( (limit <= 0) || (limit > 26) ){
+		std::cout << "Input the alphabet limit: " << std::endl
 					<< ">> ";
 
 		std::cin >> limit;
 	}
 
 	return limit;
+}
+
+int get_real_word_index() {
+	int limit = -1;
+
+	while( (limit < 0) || (limit > 35129) ){
+		std::cout << "Input the real pattern index (0 - 35129): " << std::endl
+					<< ">> ";
+
+		std::cin >> limit;
+	}
+
+	return limit;	
 }

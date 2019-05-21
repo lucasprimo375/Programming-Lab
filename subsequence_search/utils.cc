@@ -1,7 +1,9 @@
 #include <iostream>
+#include <time.h>
 
 #include "utils.h"
 #include "user_input.h"
+#include "real_instances.h"
 
 char* generate_as_vector(int size) {
 	char* text = new char[size + 1];
@@ -55,6 +57,48 @@ Instance* generate_worst_case_2_instance(int text_size, int pattern_size) {
 	return instance;
 }
 
+int generate_random_number(int min_value, int max_value){
+	srand(time(nullptr));
+
+	return min_value + (rand() % (max_value - min_value + 1));
+}
+
+char* generate_random_text(int size, int limit) {
+	char alphabet[26] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'x', 'y', 'z', 'w'};
+
+	char* text = new char[size+1];
+
+	for(int i=0; i<size; i++) {
+		int character_index = generate_random_number(0, limit);
+		text[i] = alphabet[character_index];
+	}
+
+	text[size] = '\0';
+
+	return text;
+}
+
+Instance* generate_random_instance(int text_size, int pattern_size, int limit) {
+	char* text = generate_random_text(text_size, limit);
+	char* pattern = generate_random_text(pattern_size, limit);
+
+	Instance* instance = new Instance();
+
+	instance->text = text;
+	instance->pattern = pattern;
+
+	return instance;
+}
+
+Instance* generate_real_text_instance(int real_pattern_index) {
+	Instance* instance = new Instance();
+
+	instance->text = real_text;
+	instance->pattern = patterns[real_pattern_index];
+
+	return instance;
+}
+
 Instance* generate_instance() {
 	InstanceType instance_type = get_instance_type();
 
@@ -80,6 +124,8 @@ Instance* generate_instance() {
 			}
 		}
 	} else {
+		int real_pattern_index = get_real_word_index();
+
 		std::cout << "generating real text instance" << std::endl;
 	}
 }

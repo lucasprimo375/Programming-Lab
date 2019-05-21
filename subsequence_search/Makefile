@@ -7,5 +7,5 @@ main.o: main.cc utils.h
 user_input.o: user_input.cc user_input.h
 	g++ -c user_input.cc
 
-utils.o: utils.cc utils.h user_input.h
-	g++ -c utils.cc
+utils.o: utils.cc utils.h user_input.h real_instances.h
+	g++ -c utils.cc -std=c++11 -w

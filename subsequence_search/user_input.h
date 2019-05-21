@@ -13,4 +13,6 @@ int* get_text_and_pattern_size();
 
 int get_pattern_limit();
 
+int get_real_word_index();
+
 #endif
