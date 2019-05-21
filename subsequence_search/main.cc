@@ -1,9 +1,9 @@
 #include <sstream>
 
-#include "user_input.h"
+#include "utils.h"
 
 int main(){
-	get_instance_type();
+	generate_instance();
 
 	return 0;
 }

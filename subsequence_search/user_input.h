@@ -11,6 +11,6 @@ int get_pattern_size();
 
 int* get_text_and_pattern_size();
 
-void main_loop();
+int get_pattern_limit();
 
 #endif

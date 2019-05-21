@@ -80,19 +80,3 @@ int get_pattern_limit(){
 
 	return limit;
 }
-
-void main_loop() {
-	InstanceType instance_type = get_instance_type();
-
-	if( instance_type != RealText ) {
-		int* sizes = get_text_and_pattern_size();
-	} else {
-		
-	}
-
-	/*switch(instance_type){
-		case Random:
-
-			break;
-	}*/
-}
