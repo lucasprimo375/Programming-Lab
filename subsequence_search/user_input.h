@@ -15,4 +15,6 @@ int get_pattern_limit();
 
 int get_real_word_index();
 
+bool should_continue();
+
 #endif

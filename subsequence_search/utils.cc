@@ -1,5 +1,4 @@
 #include <iostream>
-#include <time.h>
 #include <random>
 
 #include "utils.h"
@@ -32,8 +31,6 @@ char* generate_as_vector_with_a_b(int size) {
 }
 
 int generate_random_number(int min_value, int max_value){
-	//srand(time(nullptr));
-
 	std::random_device rd;
 	
 	std::mt19937 ger(rd());
@@ -67,7 +64,7 @@ void print_text(char* text) {
 		i++;
 	}
 
-	std::cout << "." << std::endl;
+	std::cout << std::endl;
 }
 
 void print_instance(Instance* instance){
@@ -77,4 +74,7 @@ void print_instance(Instance* instance){
 
 	std::cout << "printing instance text" << std::endl;
 	print_text(text);
+
+	std::cout << "printing instance pattern" << std::endl;
+	print_text(pattern);
 }

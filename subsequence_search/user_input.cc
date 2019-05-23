@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 
 #include "user_input.h"
 #include "utils.h"
@@ -93,4 +94,18 @@ int get_real_word_index() {
 	}
 
 	return limit;	
+}
+
+bool should_continue() {
+	std::string answer = "bla";
+
+	while( (answer != "yes") && (answer != "no") ) {
+		std::cout << "Would you like to continue the execution? (yes, no)"
+				<< std::endl
+				<< ">> ";
+
+		std::cin >> answer;
+	}
+
+	return answer == "yes";
 }
