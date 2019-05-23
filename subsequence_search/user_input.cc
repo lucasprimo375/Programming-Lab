@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "user_input.h"
+#include "utils.h"
 
 InstanceType get_instance_type(){
 	int type = -1;

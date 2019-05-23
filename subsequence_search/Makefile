@@ -1,11 +1,14 @@
-all: main.o user_input.o utils.o
-	g++ -o main main.o user_input.o utils.o
+all: main.o user_input.o utils.o instance_generator.o
+	g++ -o main main.o user_input.o utils.o instance_generator.o
 
-main.o: main.cc utils.h
+main.o: main.cc instance_generator.h
 	g++ -c main.cc
 
-user_input.o: user_input.cc user_input.h
+user_input.o: user_input.cc user_input.h utils.h
 	g++ -c user_input.cc
 
-utils.o: utils.cc utils.h user_input.h real_instances.h
+utils.o: utils.cc utils.h
 	g++ -c utils.cc -std=c++11 -w
+
+instance_generator.o: instance_generator.cc instance_generator.h utils.h real_instances.h user_input.h
+	g++ -c instance_generator.cc

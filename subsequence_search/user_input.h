@@ -1,7 +1,7 @@
 #ifndef USER_INPUT_H
 #define USER_INPUT_H
 
-enum InstanceType {Random, WorstCase1, WorstCase2, RealText};
+#include "utils.h"
 
 InstanceType get_instance_type();
 

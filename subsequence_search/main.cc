@@ -1,6 +1,6 @@
 #include <sstream>
 
-#include "utils.h"
+#include "instance_generator.h"
 
 int main(){
 	generate_instance();
