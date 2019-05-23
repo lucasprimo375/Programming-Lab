@@ -4,11 +4,18 @@
 #include "instance.h"
 #include "utils.h"
 #include "user_input.h"
+#include "subsequence_search.h"
 
 int main(){
 	do {
 		Instance* instance = generate_instance();
 		print_instance(instance);
+
+		int* matching_indexes = new int[200];
+
+		brute_force(instance->text, instance->pattern, matching_indexes);
+
+		print_matching_indexes(matching_indexes);
 	} while( should_continue() );
 
 	return 0;

@@ -17,4 +17,6 @@ void print_text(char* text);
 
 void print_instance(Instance* instance);
 
+void print_matching_indexes(int* matching_indexes);
+
 #endif

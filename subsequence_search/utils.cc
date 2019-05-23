@@ -78,3 +78,18 @@ void print_instance(Instance* instance){
 	std::cout << "printing instance pattern" << std::endl;
 	print_text(pattern);
 }
+
+void print_matching_indexes(int* matching_indexes) {
+	int i = 0;
+
+	std::cout << "Printing matching indexes" << std::endl;
+
+	while( matching_indexes[i] != -1 ) {
+		std::cout << matching_indexes[i] << " ";
+
+		i++;
+	}
+
+	if( i != 0)	std::cout << std::endl;
+	else std::cout << "There are no matching indexes" << std::endl;
+}
