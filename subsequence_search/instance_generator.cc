@@ -4,6 +4,7 @@
 #include "utils.h"
 #include "real_instances.h"
 #include "user_input.h"
+#include "instance.h"
 
 Instance* generate_worst_case_1_instance(int text_size, int pattern_size) {
 	char* text = generate_as_vector(text_size);
@@ -63,6 +64,8 @@ Instance* generate_instance() {
 
 		if( instance_type == Random ) {
 			int limit = get_pattern_limit();
+
+			return generate_random_instance(text_size, pattern_size, limit);
 
 			std::cout << "generating random instance..." << std::endl;
 		} else {

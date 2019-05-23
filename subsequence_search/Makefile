@@ -10,5 +10,5 @@ user_input.o: user_input.cc user_input.h utils.h
 utils.o: utils.cc utils.h
 	g++ -c utils.cc -std=c++11 -w
 
-instance_generator.o: instance_generator.cc instance_generator.h utils.h real_instances.h user_input.h
+instance_generator.o: instance_generator.cc instance_generator.h utils.h real_instances.h user_input.h instance.h
 	g++ -c instance_generator.cc

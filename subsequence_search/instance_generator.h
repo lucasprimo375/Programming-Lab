@@ -1,10 +1,7 @@
 #ifndef INSTANCE_GENERATOR_H
 #define INSTANCE_GENERATOR_H
 
-struct Instance {
-	char* text;
-	char* pattern;
-};
+#include "instance.h"
 
 Instance* generate_worst_case_1_instance(int text_size, int pattern_size);
 
