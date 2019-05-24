@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "subsequence_search.h"
 
 bool brute_force_subsequence(char* text, char* pattern, int begin_index) {
@@ -30,4 +32,32 @@ void brute_force(char* text, char* pattern, int* output) {
 	}
 
 	output[output_index] = -1;
+}
+
+int get_text_size(char* text) {
+	int i = 0;
+	
+	while( text[i] != '\0' )
+		i++;
+		
+	return i;
+}
+
+int* build_failure_function(char* pattern) {
+	int i = 1;
+	
+	int pattern_size = get_text_size(pattern);
+	int* failure_function = new int[pattern_size + 1];
+	
+	return failure_function;
+}
+
+void knuth_morris_pratt(char* text, char* pattern, int* output) {
+	int* failure_function = build_failure_function(pattern);
+	
+	int i = 0;
+	while( failure_function[i] != -1 ) {
+		std::cout << i << ": " << failure_function[i] << std::endl;
+		i++;
+	}
 }

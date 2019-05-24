@@ -13,9 +13,9 @@ int main(){
 
 		int* matching_indexes = new int[200];
 
-		brute_force(instance->text, instance->pattern, matching_indexes);
+		knuth_morris_pratt(instance->text, instance->pattern, matching_indexes);
 
-		print_matching_indexes(matching_indexes);
+		//print_matching_indexes(matching_indexes);
 	} while( should_continue() );
 
 	return 0;
