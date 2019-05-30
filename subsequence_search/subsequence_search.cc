@@ -78,11 +78,31 @@ int* build_failure_function(char* pattern) {
 
 void knuth_morris_pratt(char* text, char* pattern, int* output) {
 	int* failure_function = build_failure_function(pattern);
-	
+
 	int i = 0;
-	int n = get_text_size(pattern);
+	int j = 0;
+	int k = 0;
+	
+	int n = get_text_size(text);
+	int m = get_text_size(pattern);
+
 	while( i < n ) {
-		std::cout << i << ": " << failure_function[i] << std::endl;
-		i++;
+		if( text[i] != pattern[i] ) {
+			if( j == 0 ) i++;
+			else j = failure_function[j - 1];
+		} else {
+			if( j == m - 1 ){
+				output[k] = i - j;
+				k++;
+
+				j = failure_function[j];
+				i++;
+			} else {
+				i++;
+				j++;
+			}
+		}
 	}
+
+	output[k] = - 1;
 }
