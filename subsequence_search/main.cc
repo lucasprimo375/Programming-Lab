@@ -1,4 +1,4 @@
-#include <sstream>
+#include <iostream>
 
 #include "instance_generator.h"
 #include "instance.h"
@@ -11,11 +11,35 @@ int main(){
 		Instance* instance = generate_instance();
 		print_instance(instance);
 
-		int* matching_indexes = new int[200];
+		int text_size = get_text_size( instance->text );
+		int pattern_size = get_text_size( instance->pattern );
 
-		knuth_morris_pratt(instance->text, instance->pattern, matching_indexes);
+		int maximum_matching_size = text_size/pattern_size;
 
-		print_matching_indexes(matching_indexes);
+		int* kmp_matching_indexes = new int[maximum_matching_size];
+
+		std::cout << std::endl << "Running Knuth-Morris-Pratt Algorithm" << std::endl;
+
+		knuth_morris_pratt(instance->text, instance->pattern, kmp_matching_indexes);
+
+		print_matching_indexes(kmp_matching_indexes);
+
+
+		int* bf_matching_indexes = new int[maximum_matching_size];
+
+		std::cout << std::endl << "Running Brute Force Algorithm" << std::endl;
+
+		brute_force(instance->text, instance->pattern, bf_matching_indexes);
+
+		print_matching_indexes(bf_matching_indexes);
+
+		std::cout << std::endl;
+
+		if( is_equal( kmp_matching_indexes,  bf_matching_indexes) ) {
+			std::cout << "The matching indexes are all equal" << std::endl;
+		} else {
+			std::cout << "The matching indexes are different" << std::endl;
+		}
 	} while( should_continue() );
 
 	return 0;

@@ -96,3 +96,23 @@ void print_matching_indexes(int* matching_indexes) {
 	if( i != 0)	std::cout << std::endl;
 	else std::cout << "There are no matching indexes" << std::endl;
 }
+
+bool is_equal(int* matching_1, int* matching_2) {
+	int i = 0;
+
+	while( (matching_1[i] != -1) && (matching_2[i] != -1) && (matching_1[i] == matching_2[i]) )
+		i++;
+
+	if( (matching_1[i] == -1) && (matching_2[i] == -1) ) return true;
+
+	return false;
+}
+
+int get_text_size(char* text) {
+	int i = 0;
+	
+	while( text[i] != '\0' )
+		i++;
+		
+	return i;
+}

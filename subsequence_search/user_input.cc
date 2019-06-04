@@ -100,6 +100,8 @@ int get_real_word_index() {
 bool should_continue() {
 	std::string answer = "bla";
 
+	std::cout << std::endl;
+	
 	while( (answer != "y") && (answer != "n") ) {
 		std::cout << "Would you like to continue the execution? (y, n)"
 				<< std::endl

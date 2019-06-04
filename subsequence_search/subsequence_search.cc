@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "subsequence_search.h"
+#include "utils.h"
 
 bool brute_force_subsequence(char* text, char* pattern, int begin_index) {
 	int text_index = begin_index;
@@ -32,15 +33,6 @@ void brute_force(char* text, char* pattern, int* output) {
 	}
 
 	output[output_index] = -1;
-}
-
-int get_text_size(char* text) {
-	int i = 0;
-	
-	while( text[i] != '\0' )
-		i++;
-		
-	return i;
 }
 
 int* build_failure_function(char* pattern) {
