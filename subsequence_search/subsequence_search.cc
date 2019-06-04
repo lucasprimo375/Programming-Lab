@@ -87,7 +87,7 @@ void knuth_morris_pratt(char* text, char* pattern, int* output) {
 	int m = get_text_size(pattern);
 
 	while( i < n ) {
-		if( text[i] != pattern[i] ) {
+		if( text[i] != pattern[j] ) {
 			if( j == 0 ) i++;
 			else j = failure_function[j - 1];
 		} else {
