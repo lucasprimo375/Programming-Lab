@@ -3,6 +3,7 @@
 
 #include "utils.h"
 #include "instance.h"
+#include "instance_type.h"
 
 char* generate_as_vector(int size) {
 	char* text = new char[size + 1];
@@ -68,15 +69,17 @@ void print_text(char* text) {
 }
 
 void print_instance(Instance* instance){
-	char* text = instance->text;
-	char* pattern = instance->pattern;
+	if( instance->type != RealText ){
+		char* text = instance->text;
+		char* pattern = instance->pattern;
 
 
-	std::cout << "printing instance text" << std::endl;
-	print_text(text);
+		std::cout << "printing instance text" << std::endl;
+		print_text(text);
 
-	std::cout << "printing instance pattern" << std::endl;
-	print_text(pattern);
+		std::cout << "printing instance pattern" << std::endl;
+		print_text(pattern);
+	}
 }
 
 void print_matching_indexes(int* matching_indexes) {

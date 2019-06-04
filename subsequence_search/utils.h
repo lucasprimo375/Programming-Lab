@@ -3,8 +3,6 @@
 
 #include "instance.h"
 
-enum InstanceType {Random, WorstCase1, WorstCase2, RealText};
-
 char* generate_as_vector(int size);
 
 char* generate_as_vector_with_a_b(int size);

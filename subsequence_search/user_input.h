@@ -2,6 +2,7 @@
 #define USER_INPUT_H
 
 #include "utils.h"
+#include "instance_type.h"
 
 InstanceType get_instance_type();
 

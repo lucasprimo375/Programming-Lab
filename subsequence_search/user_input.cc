@@ -3,6 +3,7 @@
 
 #include "user_input.h"
 #include "utils.h"
+#include "instance_type.h"
 
 InstanceType get_instance_type(){
 	int type = -1;

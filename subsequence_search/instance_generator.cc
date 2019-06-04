@@ -15,6 +15,7 @@ Instance* generate_worst_case_1_instance(int text_size, int pattern_size) {
 
 	instance->text = text;
 	instance->pattern = pattern;
+	instance->type = WorstCase1;
 
 	return instance;
 }
@@ -28,6 +29,7 @@ Instance* generate_worst_case_2_instance(int text_size, int pattern_size) {
 
 	instance->text = text;
 	instance->pattern = pattern;
+	instance->type = WorstCase2;
 
 	return instance;
 }
@@ -40,6 +42,7 @@ Instance* generate_random_instance(int text_size, int pattern_size, int limit) {
 
 	instance->text = text;
 	instance->pattern = pattern;
+	instance->type = Random;
 
 	return instance;
 }
@@ -49,6 +52,7 @@ Instance* generate_real_text_instance(int real_pattern_index) {
 
 	instance->text = real_text;
 	instance->pattern = patterns[real_pattern_index];
+	instance->type = RealText;
 
 	return instance;
 }

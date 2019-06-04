@@ -7,7 +7,7 @@ main.o: main.cc instance_generator.h
 user_input.o: user_input.cc user_input.h utils.h
 	g++ -c user_input.cc
 
-utils.o: utils.cc utils.h
+utils.o: utils.cc utils.h instance_type.h
 	g++ -c utils.cc -std=c++11 -w
 
 instance_generator.o: instance_generator.cc instance_generator.h utils.h real_instances.h user_input.h instance.h
