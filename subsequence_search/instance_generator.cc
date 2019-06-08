@@ -70,24 +70,14 @@ Instance* generate_instance() {
 			int limit = get_pattern_limit();
 
 			return generate_random_instance(text_size, pattern_size, limit);
-
-			std::cout << "generating random instance..." << std::endl;
 		} else {
-			if( instance_type == WorstCase1 ) {
-				std::cout << "generating worst case 1 instance..." << std::endl;
-
-				return generate_worst_case_1_instance(text_size, pattern_size);
-			} else { // instance_type == WorstCase2
-				std::cout << "generating worst case 2 instance..." << std::endl;
-
+			if( instance_type == WorstCase1 ) return generate_worst_case_1_instance(text_size, pattern_size);
+			else // instance_type == WorstCase2
 				return generate_worst_case_2_instance(text_size, pattern_size);
-			}
 		}
 	} else {
 		int real_pattern_index = get_real_word_index();
 
 		return generate_real_text_instance(real_pattern_index);
-
-		std::cout << "generating real text instance..." << std::endl;
 	}
 }

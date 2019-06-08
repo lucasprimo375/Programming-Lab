@@ -74,10 +74,10 @@ void print_instance(Instance* instance){
 		char* pattern = instance->pattern;
 
 
-		std::cout << "printing instance text" << std::endl;
+		std::cout << std::endl << "printing instance text" << std::endl;
 		print_text(text);
 
-		std::cout << "printing instance pattern" << std::endl;
+		std::cout << std::endl << "printing instance pattern" << std::endl;
 		print_text(pattern);
 	}
 }
@@ -85,7 +85,7 @@ void print_instance(Instance* instance){
 void print_matching_indexes(int* matching_indexes) {
 	int i = 0;
 
-	std::cout << "Printing matching indexes" << std::endl;
+	std::cout << std::endl << "Printing matching indexes" << std::endl;
 
 	while( matching_indexes[i] != -1 ) {
 		std::cout << matching_indexes[i] << " ";
@@ -94,7 +94,7 @@ void print_matching_indexes(int* matching_indexes) {
 	}
 
 	if( i != 0)	std::cout << std::endl;
-	else std::cout << "There are no matching indexes" << std::endl;
+	else std::cout << std::endl << "There are no matching indexes" << std::endl;
 }
 
 bool is_equal(int* matching_1, int* matching_2) {
