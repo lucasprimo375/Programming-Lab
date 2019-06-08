@@ -1,5 +1,6 @@
 #include <iostream>
 #include <random>
+#include <chrono>
 
 #include "utils.h"
 #include "instance.h"
@@ -59,27 +60,27 @@ char* generate_random_text(int size, int limit) {
 void print_text(char* text) {
 	int i = 0;
 
-	while( text[i] != '\0' ) {
+	while( (text[i] != '\0') && (i < 100) ) {
 		std::cout << text[i];
 
 		i++;
 	}
 
+	if( (text[i] != '\0') && (i >= 100) ) std::cout << "...";
+
 	std::cout << std::endl;
 }
 
 void print_instance(Instance* instance){
-	if( instance->type != RealText ){
-		char* text = instance->text;
-		char* pattern = instance->pattern;
+	char* text = instance->text;
+	char* pattern = instance->pattern;
 
 
-		std::cout << std::endl << "printing instance text" << std::endl;
-		print_text(text);
+	std::cout << std::endl << "printing instance text" << std::endl;
+	print_text(text);
 
-		std::cout << std::endl << "printing instance pattern" << std::endl;
-		print_text(pattern);
-	}
+	std::cout << std::endl << "printing instance pattern" << std::endl;
+	print_text(pattern);
 }
 
 void print_matching_indexes(int* matching_indexes) {
@@ -87,11 +88,13 @@ void print_matching_indexes(int* matching_indexes) {
 
 	std::cout << std::endl << "Printing matching indexes" << std::endl;
 
-	while( matching_indexes[i] != -1 ) {
+	while( (matching_indexes[i] != -1) && (i < 100) ) {
 		std::cout << matching_indexes[i] << " ";
 
 		i++;
 	}
+
+	if((matching_indexes[i] != -1) && (i >= 100)) std::cout << "...";
 
 	if( i != 0)	std::cout << std::endl;
 	else std::cout << std::endl << "There are no matching indexes" << std::endl;
@@ -115,4 +118,10 @@ int get_text_size(char* text) {
 		i++;
 		
 	return i;
+}
+
+int get_time_seconds(){
+	std::chrono::milliseconds ms = std::chrono::duration_cast< std::chrono::milliseconds >(std::chrono::system_clock::now().time_since_epoch());
+	
+	return ms.count();
 }

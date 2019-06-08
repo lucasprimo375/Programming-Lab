@@ -21,4 +21,6 @@ bool is_equal(int* matching_1, int* matching_2);
 
 int get_text_size(char* text);
 
+int get_time_seconds();
+
 #endif

@@ -20,7 +20,11 @@ int main(){
 
 		std::cout << std::endl << "Running Knuth-Morris-Pratt Algorithm" << std::endl;
 
+		unsigned long int start_time = get_time_seconds();
 		knuth_morris_pratt(instance->text, instance->pattern, kmp_matching_indexes);
+		unsigned long int finish_time = get_time_seconds();
+
+		std::cout << std::endl << "The running time of Knuth-Morris-Pratt is " << (finish_time - start_time)/1000.0 << " seconds" << std::endl;
 
 		print_matching_indexes(kmp_matching_indexes);
 
@@ -29,7 +33,11 @@ int main(){
 
 		std::cout << std::endl << "Running Brute Force Algorithm" << std::endl;
 
+		start_time = get_time_seconds();
 		brute_force(instance->text, instance->pattern, bf_matching_indexes);
+		finish_time = get_time_seconds();
+
+		std::cout << std::endl << "The running time of Brute Forte is " << (finish_time - start_time)/1000.0 << " seconds" << std::endl;
 
 		print_matching_indexes(bf_matching_indexes);
 
