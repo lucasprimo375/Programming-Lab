@@ -4,8 +4,8 @@
 #include "instance_type.h"
 
 struct Instance {
-	char* text;
-	char* pattern;
+	const char* text;
+	const char* pattern;
 	InstanceType type;
 };
 

@@ -3,7 +3,7 @@
 #include "subsequence_search.h"
 #include "utils.h"
 
-bool brute_force_subsequence(char* text, char* pattern, int begin_index) {
+bool brute_force_subsequence(const char* text, const char* pattern, int begin_index) {
 	int text_index = begin_index;
 	int pattern_index = 0;
 
@@ -19,7 +19,7 @@ bool brute_force_subsequence(char* text, char* pattern, int begin_index) {
 	return true;
 }
 
-void brute_force(char* text, char* pattern, int* output) {
+void brute_force(const char* text, const char* pattern, int* output) {
 	int i = 0;
 	int output_index = 0;
 
@@ -35,7 +35,7 @@ void brute_force(char* text, char* pattern, int* output) {
 	output[output_index] = -1;
 }
 
-int* build_failure_function(char* pattern) {
+int* build_failure_function(const char* pattern) {
 	int i = 1;
 	int j = 0;
 	
@@ -68,7 +68,7 @@ int* build_failure_function(char* pattern) {
 	return failure_function;
 }
 
-void knuth_morris_pratt(char* text, char* pattern, int* output) {
+void knuth_morris_pratt(const char* text, const char* pattern, int* output) {
 	int* failure_function = build_failure_function(pattern);
 
 	int i = 0;

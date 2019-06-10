@@ -57,7 +57,7 @@ char* generate_random_text(int size, int limit) {
 	return text;
 }
 
-void print_text(char* text) {
+void print_text(const char* text) {
 	int i = 0;
 
 	while( (text[i] != '\0') && (i < 100) ) {
@@ -72,8 +72,8 @@ void print_text(char* text) {
 }
 
 void print_instance(Instance* instance){
-	char* text = instance->text;
-	char* pattern = instance->pattern;
+	const char* text = instance->text;
+	const char* pattern = instance->pattern;
 
 
 	std::cout << std::endl << "printing instance text" << std::endl;
@@ -88,15 +88,15 @@ void print_matching_indexes(int* matching_indexes) {
 
 	std::cout << std::endl << "Printing matching indexes" << std::endl;
 
-	while( (matching_indexes[i] != -1) && (i < 100) ) {
-		std::cout << matching_indexes[i] << " ";
+	while( (matching_indexes[i] != -1) /*&& (i < 100)*/ ) {
+		if( i < 100 ) std::cout << matching_indexes[i] << " ";
 
 		i++;
 	}
 
-	if((matching_indexes[i] != -1) && (i >= 100)) std::cout << "...";
+	if( i >= 100 ) std::cout << "...";
 
-	if( i != 0)	std::cout << std::endl;
+	if( matching_indexes[i] == -1 )	std::cout << std::endl;
 	else std::cout << std::endl << "There are no matching indexes" << std::endl;
 }
 
@@ -111,7 +111,7 @@ bool is_equal(int* matching_1, int* matching_2) {
 	return false;
 }
 
-int get_text_size(char* text) {
+int get_text_size(const char* text) {
 	int i = 0;
 	
 	while( text[i] != '\0' )
