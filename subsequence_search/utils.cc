@@ -88,8 +88,8 @@ void print_matching_indexes(int* matching_indexes) {
 
 	std::cout << std::endl << "Printing matching indexes" << std::endl;
 
-	while( (matching_indexes[i] != -1) /*&& (i < 100)*/ ) {
-		if( i < 100 ) std::cout << matching_indexes[i] << " ";
+	while( matching_indexes[i] != -1 ) {
+		/*if( i < 100 )*/ std::cout << matching_indexes[i] << " ";
 
 		i++;
 	}

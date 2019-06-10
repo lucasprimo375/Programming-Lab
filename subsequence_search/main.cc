@@ -29,7 +29,7 @@ int main(){
 		print_matching_indexes(kmp_matching_indexes);
 
 
-		int* bf_matching_indexes = new int[maximum_matching_size];
+		/*int* bf_matching_indexes = new int[maximum_matching_size];
 
 		std::cout << std::endl << "Running Brute Force Algorithm" << std::endl;
 
@@ -47,7 +47,7 @@ int main(){
 			std::cout << "The matching indexes are all equal" << std::endl;
 		} else {
 			std::cout << "The matching indexes are different" << std::endl;
-		}
+		}*/
 	} while( should_continue() );
 
 	return 0;

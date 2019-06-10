@@ -36,9 +36,6 @@ void brute_force(const char* text, const char* pattern, int* output) {
 }
 
 int* build_failure_function(const char* pattern) {
-	int i = 1;
-	int j = 0;
-	
 	int pattern_size = get_text_size(pattern);
 	int* failure_function = new int[pattern_size];
 	
@@ -96,5 +93,5 @@ void knuth_morris_pratt(const char* text, const char* pattern, int* output) {
 		}
 	}
 
-	output[k] = - 1;
+	output[k] = -1;
 }
