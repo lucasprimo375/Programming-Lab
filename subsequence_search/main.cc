@@ -14,7 +14,7 @@ int main(){
 		int text_size = get_text_size( instance->text );
 		int pattern_size = get_text_size( instance->pattern );
 
-		int maximum_matching_size = text_size - pattern_size + 1;
+		int maximum_matching_size = text_size;
 
 		int* kmp_matching_indexes = new int[maximum_matching_size];
 
