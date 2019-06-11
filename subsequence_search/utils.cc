@@ -76,10 +76,10 @@ void print_instance(Instance* instance){
 	const char* pattern = instance->pattern;
 
 
-	std::cout << std::endl << "printing instance text" << std::endl;
+	std::cout << std::endl << "Printing instance text" << std::endl;
 	print_text(text);
 
-	std::cout << std::endl << "printing instance pattern" << std::endl;
+	std::cout << std::endl << "Printing instance pattern" << std::endl;
 	print_text(pattern);
 }
 
@@ -89,26 +89,28 @@ void print_matching_indexes(int* matching_indexes) {
 	std::cout << std::endl << "Printing matching indexes" << std::endl;
 
 	while( matching_indexes[i] != -1 ) {
-		/*if( i < 100 )*/ std::cout << matching_indexes[i] << " ";
+		if( i < 100 ) std::cout << matching_indexes[i] << " ";
 
 		i++;
 	}
 
 	if( i >= 100 ) std::cout << "...";
 
-	if( matching_indexes[i] == -1 )	std::cout << std::endl;
+	if( i != 0 )	std::cout << std::endl;
 	else std::cout << std::endl << "There are no matching indexes" << std::endl;
 }
 
-bool is_equal(int* matching_1, int* matching_2) {
+void is_equal(int* matching_1, int* matching_2) {
 	int i = 0;
 
 	while( (matching_1[i] != -1) && (matching_2[i] != -1) && (matching_1[i] == matching_2[i]) )
 		i++;
 
-	if( (matching_1[i] == -1) && (matching_2[i] == -1) ) return true;
-
-	return false;
+	if( (matching_1[i] == -1) && (matching_2[i] == -1) ) {
+		std::cout << "There are " << i << " matching indexes, and they are all equal" << std::endl;
+	} else {
+		std::cout << "The matching indexes are different at position " << i << std::endl;
+	}
 }
 
 int get_text_size(const char* text) {

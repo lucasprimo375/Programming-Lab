@@ -6,7 +6,6 @@
 #include "instance_type.h"
 
 InstanceType get_instance_type(){
-	return Random;
 	int type = -1;
 
 	while((type < 0) || (type > 3)){
@@ -30,7 +29,6 @@ InstanceType get_instance_type(){
 }
 
 int get_text_size(){
-	return 21;
 	int text_size = 0;
 
 	while(text_size <= 0){
@@ -44,7 +42,6 @@ int get_text_size(){
 }
 
 int get_pattern_size(){
-	return 2;
 	int pattern_size = 0;
 
 	while(pattern_size <= 0){
@@ -75,7 +72,6 @@ int* get_text_and_pattern_size(){
 }
 
 int get_pattern_limit(){
-	return 1;
 	int limit = 0;
 
 	while( (limit <= 0) || (limit > 26) ){
@@ -102,7 +98,6 @@ int get_real_word_index() {
 }
 
 bool should_continue() {
-	return false;
 	std::string answer = "bla";
 
 	std::cout << std::endl;

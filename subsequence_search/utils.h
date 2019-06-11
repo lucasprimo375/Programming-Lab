@@ -17,7 +17,7 @@ void print_instance(Instance* instance);
 
 void print_matching_indexes(int* matching_indexes);
 
-bool is_equal(int* matching_1, int* matching_2);
+void is_equal(int* matching_1, int* matching_2);
 
 int get_text_size(const char* text);
 
