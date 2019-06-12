@@ -18,7 +18,7 @@ int main(){
 
 		int* kmp_matching_indexes = new int[maximum_matching_size];
 
-		std::cout << std::endl << "Running Knuth-Morris-Pratt Algorithm" << std::endl;
+		std::cout << std::endl << std::endl << "RUNNING KNUTH-MORRIS-PRATT ALGORITHM" << std::endl;
 
 		unsigned long int start_time = get_time_seconds();
 		knuth_morris_pratt(instance->text, instance->pattern, kmp_matching_indexes);
@@ -31,7 +31,7 @@ int main(){
 
 		int* bf_matching_indexes = new int[maximum_matching_size];
 
-		std::cout << std::endl << "Running Brute Force Algorithm" << std::endl;
+		std::cout << std::endl << std::endl << "RUNNING BRUTE FORCE ALGORITHM" << std::endl;
 
 		start_time = get_time_seconds();
 		brute_force(instance->text, instance->pattern, bf_matching_indexes);

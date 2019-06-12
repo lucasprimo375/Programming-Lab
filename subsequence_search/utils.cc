@@ -107,7 +107,11 @@ void is_equal(int* matching_1, int* matching_2) {
 		i++;
 
 	if( (matching_1[i] == -1) && (matching_2[i] == -1) ) {
-		std::cout << "There are " << i << " matching indexes, and they are all equal" << std::endl;
+		std::cout << "There are " << i << " matching indexes";
+
+		if( i > 0 ) std::cout << ", and they are all equal";
+
+		std::cout << std::endl;
 	} else {
 		std::cout << "The matching indexes are different at position " << i << std::endl;
 	}
