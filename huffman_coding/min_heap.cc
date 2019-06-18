@@ -12,7 +12,23 @@ MinHeap::MinHeap(int size, node** nodes) {
 }
 
 node* MinHeap::getMin() {
+	node* minNode = nodes_[0];
 
+	node** newNodes = new node*[size_ - 1];
+
+	for( int i = 1; i<size_; i++ ) {
+		newNodes[i-1] = nodes_[i];
+	}
+
+	delete nodes_;
+
+	nodes_ = newNodes;
+
+	size_--;
+
+	buildHeap();
+
+	return minNode;
 }
 
 void MinHeap::print() {
