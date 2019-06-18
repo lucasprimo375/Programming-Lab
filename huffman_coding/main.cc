@@ -11,7 +11,11 @@ int main() {
 
 	std::unordered_map<char, int>* frequency_table = Utils::get_frequency_table(file_name);
 
-	Utils::print_frequency_table(frequency_table);
+	if( frequency_table == nullptr ) {
+		std::cout << "Your file could not be opened or does not exist" << std::endl;
+	} else {
+		Utils::print_frequency_table(frequency_table);
+	}
 
 	return 0;
 }

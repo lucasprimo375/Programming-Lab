@@ -50,16 +50,18 @@ void Utils::insert_characters(std::unordered_map<char, int>* frequency_table, st
 
 	for( int i = 0; i < line_size; i++ ) {
 		char char_i = line[i];
-		int char_count = frequency_table->count( char_i );
+		auto char_iterator = frequency_table->find( char_i );
 
-		if( char_count == 0 ) {
+		if( char_iterator == frequency_table->end() ) {
 			frequency_table->emplace( char_i, 1 );
 		} else {
+			int char_count = char_iterator->second;
+
 			char_count++;
 
 			frequency_table->erase( char_i );
 
-			frequency_table->emplace( char_i, char_count );
+			frequency_table->emplace( char_i, char_count);
 		}
 	}
 }
