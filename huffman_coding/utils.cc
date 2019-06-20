@@ -4,6 +4,8 @@
 #include <sstream>
 
 #include "utils.h"
+#include "min_heap.h"
+#include "node.h"
 
 void Utils::print_file(std::string file_name) {
 	std::ifstream file_stream;
@@ -70,4 +72,22 @@ void Utils::print_frequency_table(std::unordered_map<char, int>* frequency_table
 	for( auto& entry : *frequency_table ) {
 		std::cout << entry.first << ": " << entry.second << std::endl;
 	}
+}
+
+MinHeap* Utils::build_frequency_min_heap( std::string file_name ) {
+	std::unordered_map<char, int>* frequency_table = Utils::get_frequency_table( file_name );
+
+	//Utils::print_frequency_table( frequency_table );
+
+	MinHeap* minHeap = new MinHeap();
+
+	for( auto& entry : *frequency_table ) {
+		node* n = new node();
+		n->character = entry.first;
+		n->frequency = entry.second;
+
+		minHeap->addNode( n );
+	}
+
+	return minHeap;
 }
