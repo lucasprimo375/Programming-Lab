@@ -13,5 +13,5 @@ user_input.o: user_input.cc user_input.h
 min_heap.o: min_heap.cc min_heap.h node.h
 	g++ -c min_heap.cc
 
-huffman_encoding.o: huffman_encoding.cc huffman_encoding.h utils.h
+huffman_encoding.o: huffman_encoding.cc huffman_encoding.h utils.h node.h
 	g++ -c huffman_encoding.cc

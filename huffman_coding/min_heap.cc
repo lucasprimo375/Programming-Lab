@@ -16,6 +16,8 @@ MinHeap::MinHeap() {
 }
 
 node* MinHeap::getMin() {
+	if( size_ == 0 ) return nullptr;
+
 	node* minNode = nodes_[0];
 
 	node** newNodes = new node*[size_ - 1];
@@ -58,6 +60,10 @@ void MinHeap::addNode(node* n) {
 	size_++;
 
 	heapifyBottomUp(size_ - 1);
+}
+
+int MinHeap::getSize() {
+	return size_;
 }
 
 void MinHeap::heapify(int index) {

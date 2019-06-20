@@ -77,7 +77,7 @@ void Utils::print_frequency_table(std::unordered_map<char, int>* frequency_table
 MinHeap* Utils::build_frequency_min_heap( std::string file_name ) {
 	std::unordered_map<char, int>* frequency_table = Utils::get_frequency_table( file_name );
 
-	//Utils::print_frequency_table( frequency_table );
+	Utils::print_frequency_table( frequency_table );
 
 	MinHeap* minHeap = new MinHeap();
 

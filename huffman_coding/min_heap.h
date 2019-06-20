@@ -15,6 +15,8 @@ public:
 
 	void addNode(node* n);
 
+	int getSize();
+
 private:
 	void heapify(int index);
 
