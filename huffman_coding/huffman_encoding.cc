@@ -22,5 +22,7 @@ void Huffman::encode( std::string file_name_to_encode ) {
 		minHeap->addNode(c);
 	}
 
-	minHeap->print();
+	//minHeap->print();
+
+	Utils::print_huffman_tree( minHeap->getMin(), "" );
 }

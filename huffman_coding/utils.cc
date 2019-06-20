@@ -77,7 +77,7 @@ void Utils::print_frequency_table(std::unordered_map<char, int>* frequency_table
 MinHeap* Utils::build_frequency_min_heap( std::string file_name ) {
 	std::unordered_map<char, int>* frequency_table = Utils::get_frequency_table( file_name );
 
-	Utils::print_frequency_table( frequency_table );
+	//Utils::print_frequency_table( frequency_table );
 
 	MinHeap* minHeap = new MinHeap();
 
@@ -90,4 +90,19 @@ MinHeap* Utils::build_frequency_min_heap( std::string file_name ) {
 	}
 
 	return minHeap;
+}
+
+void Utils::print_huffman_tree( node* n, std::string depth) {
+	if( n->character.size() == 1 )
+		std::cout << n->character << " is " << n->frequency << ", with " << depth << std::endl;
+
+	if( n->right != nullptr ) {
+		depth += "0";
+		Utils::print_huffman_tree( n->right, depth );
+	}
+
+	if( n->left != nullptr ) {
+		depth += "1";
+		Utils::print_huffman_tree( n->left, depth );
+	}
 }

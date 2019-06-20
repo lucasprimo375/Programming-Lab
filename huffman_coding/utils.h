@@ -5,6 +5,7 @@
 #include <unordered_map>
 
 #include "min_heap.h"
+#include "node.h"
 
 namespace Utils {
 	void print_file(std::string file_name);
@@ -14,6 +15,8 @@ namespace Utils {
 	void print_frequency_table(std::unordered_map<char, int>* frequency_table);
 
 	MinHeap* build_frequency_min_heap( std::string file_name );
+
+	void print_huffman_tree( node* n, std::string depth );
 };
 
 #endif
