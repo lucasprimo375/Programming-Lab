@@ -1,6 +1,6 @@
 #include <iostream>
-#include <random>
 #include <chrono>
+#include <ctime>
 
 #include "utils.h"
 #include "instance.h"
@@ -33,13 +33,7 @@ char* generate_as_vector_with_a_b(int size) {
 }
 
 int generate_random_number(int min_value, int max_value){
-	std::random_device rd;
-	
-	std::mt19937 ger(rd());
-
-	std::uniform_int_distribution<int> dis(min_value, max_value);
-
-	return dis(ger);
+	return min_value + std::rand() % (max_value - min_value + 1);
 }
 
 char* generate_random_text(int size, int limit) {
