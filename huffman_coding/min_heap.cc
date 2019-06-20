@@ -47,7 +47,7 @@ void MinHeap::heapify(int index) {
 		smallest = left;
 	else smallest = index;
 
-	if( (right < size_) && (nodes_[right]->frequency < nodes_[index]->frequency) )
+	if( (right < size_) && (nodes_[right]->frequency < nodes_[smallest]->frequency) )
 		smallest = right;
 
 	if( smallest != index ) {
