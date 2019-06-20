@@ -11,6 +11,10 @@ MinHeap::MinHeap(int size, node** nodes) {
 	buildHeap();
 }
 
+MinHeap::MinHeap() {
+	size_ = 0;
+}
+
 node* MinHeap::getMin() {
 	node* minNode = nodes_[0];
 
@@ -35,8 +39,25 @@ node* MinHeap::getMin() {
 
 void MinHeap::print() {
 	for( int i = 0; i < size_; i++ ) {
-		std::cout << "node at " << i << " is " << nodes_[i]->character << " whith frequency " << nodes_[i]->frequency << std::endl;
+		std::cout << "node at " << i << " is " << nodes_[i]->character << " with frequency " << nodes_[i]->frequency << std::endl;
 	}
+}
+
+void MinHeap::addNode(node* n) {
+	node** newNodes = new node*[size_ + 1];
+
+	newNodes[size_] = n;
+
+	for( int i = 0; i < size_; i++ )
+		newNodes[i] = nodes_[i];
+
+	if( size_ != 0 ) delete nodes_;
+
+	nodes_ = newNodes;
+
+	size_++;
+
+	heapifyBottomUp(size_ - 1);
 }
 
 void MinHeap::heapify(int index) {
@@ -60,6 +81,22 @@ void MinHeap::heapify(int index) {
 		nodes_[index] = n;
 
 		heapify(smallest);
+	}
+}
+
+void MinHeap::heapifyBottomUp(int index) {
+	int parent = ( index - 1 ) / 2;
+
+	while( ( index > 0 ) && ( nodes_[parent]->frequency > nodes_[index]->frequency ) ) {
+		node* n = nodes_[parent];
+
+		nodes_[parent] = nodes_[index];
+
+		nodes_[index] = n;
+
+		index = parent;
+
+		parent = ( index - 1 ) / 2;
 	}
 }
 

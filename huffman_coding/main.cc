@@ -30,33 +30,27 @@ int main() {
 	nodes[2] = node3;
 	nodes[3] = node4;
 
-	MinHeap minHeap(4, nodes);
+	MinHeap minHeap;
 
+	minHeap.addNode(node1);
 	minHeap.print();
+	std::cout << std::endl;
 
+	minHeap.addNode(node2);
+	minHeap.print();
+	std::cout << std::endl;
+
+	minHeap.addNode(node3);
+	minHeap.print();
 	std::cout << std::endl;
 
 	minHeap.getMin();
-
 	minHeap.print();
-
 	std::cout << std::endl;
 
-	minHeap.getMin();
-
+	minHeap.addNode(node4);
 	minHeap.print();
-
 	std::cout << std::endl;
-
-	minHeap.getMin();
-
-	minHeap.print();
-
-	std::cout << std::endl;
-
-	minHeap.getMin();
-
-	minHeap.print();
 
 	return 0;
 }
