@@ -34,5 +34,29 @@ int main() {
 
 	minHeap.print();
 
+	std::cout << std::endl;
+
+	minHeap.getMin();
+
+	minHeap.print();
+
+	std::cout << std::endl;
+
+	minHeap.getMin();
+
+	minHeap.print();
+
+	std::cout << std::endl;
+
+	minHeap.getMin();
+
+	minHeap.print();
+
+	std::cout << std::endl;
+
+	minHeap.getMin();
+
+	minHeap.print();
+
 	return 0;
 }

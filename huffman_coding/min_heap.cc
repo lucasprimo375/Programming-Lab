@@ -16,8 +16,10 @@ node* MinHeap::getMin() {
 
 	node** newNodes = new node*[size_ - 1];
 
-	for( int i = 1; i<size_; i++ ) {
-		newNodes[i-1] = nodes_[i];
+	newNodes[0] = nodes_[size_ - 1];
+
+	for( int i = 1; i<size_ - 1; i++ ) {
+		newNodes[i] = nodes_[i];
 	}
 
 	delete nodes_;
@@ -26,7 +28,7 @@ node* MinHeap::getMin() {
 
 	size_--;
 
-	buildHeap();
+	heapify(0);
 
 	return minNode;
 }
