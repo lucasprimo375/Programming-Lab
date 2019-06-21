@@ -1,5 +1,6 @@
 #include <string>
 #include <unordered_map>
+#include <iostream>
 
 #include "huffman_encoding.h"
 #include "utils.h"
@@ -22,7 +23,17 @@ void Huffman::encode( std::string file_name_to_encode ) {
 		minHeap->addNode(c);
 	}
 
-	//minHeap->print();
+	std::string* code = new std::string;
 
-	Utils::print_huffman_tree( minHeap->getMin(), "" );
+	node* root = minHeap->getMin();
+
+	std::unordered_map<std::string, std::string>* code_map = new std::unordered_map<std::string, std::string>();
+
+	if( root == nullptr ) {
+		code_map->emplace("", "0");
+	} else {
+		Utils::generate_huffman_code( root, root, code, code_map );
+	}
+
+	Utils::print_code_map( code_map );
 }

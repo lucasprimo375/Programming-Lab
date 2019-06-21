@@ -16,7 +16,8 @@ namespace Utils {
 
 	MinHeap* build_frequency_min_heap( std::string file_name );
 
-	void print_huffman_tree( node* n, std::string depth );
+	void generate_huffman_code( node* root, node* n, std::string* code, std::unordered_map<std::string, std::string>* code_map );
+	void print_code_map(std::unordered_map<std::string, std::string>* code_map);
 };
 
 #endif

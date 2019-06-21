@@ -5,6 +5,7 @@
 #include "user_input.h"
 
 std::string UserInput::get_file_to_encode() {
+	return "test.txt";
 	std::string file_name;
 
 	bool bad_file = true;
