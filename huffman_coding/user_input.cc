@@ -5,7 +5,6 @@
 #include "user_input.h"
 
 std::string UserInput::get_file_to_encode() {
-	return "test.txt";
 	std::string file_name;
 
 	bool bad_file = true;
@@ -29,4 +28,14 @@ std::string UserInput::get_file_to_encode() {
 	}
 
 	return file_name;
+}
+
+std::string UserInput::get_output_file_name() {
+	std::string output_file_name;
+	
+	std::cout << std::endl << "Input output file name" << std::endl;
+	std::cout << ">> ";
+	std::cin >> output_file_name;
+
+	return output_file_name;
 }

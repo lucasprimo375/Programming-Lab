@@ -18,6 +18,11 @@ namespace Utils {
 
 	void generate_huffman_code( node* root, node* n, std::string* code, std::unordered_map<std::string, std::string>* code_map );
 	void print_code_map(std::unordered_map<std::string, std::string>* code_map);
+
+	bool write_coded_file(std::unordered_map<std::string, std::string>* code_map, std::string file_name_to_encode, std::string output_file_name);
+	std::string encode_string( std::unordered_map<std::string, std::string>* code_map, std::string string_to_encode );
+	bool write_tree_to_file( std::unordered_map<std::string, std::string>* code_map, std::string output_file_name );
+	bool write_string_to_file( std::string string, std::string output_file_name);
 };
 
 #endif

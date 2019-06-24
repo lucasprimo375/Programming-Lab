@@ -7,7 +7,7 @@
 #include "min_heap.h"
 #include "node.h"
 
-void Huffman::encode( std::string file_name_to_encode ) {
+void Huffman::encode( std::string file_name_to_encode, std::string output_file_name ) {
 	MinHeap* minHeap = Utils::build_frequency_min_heap( file_name_to_encode );
 
 	while( minHeap->getSize() > 1 ) {
@@ -35,5 +35,9 @@ void Huffman::encode( std::string file_name_to_encode ) {
 		Utils::generate_huffman_code( root, root, code, code_map );
 	}
 
-	Utils::print_code_map( code_map );
+	bool result = Utils::write_coded_file( code_map, file_name_to_encode, output_file_name );
+
+	if( !result ) {
+		std::cout << "Your file could not be opened or does not exist" << std::endl;
+	}
 }

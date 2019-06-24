@@ -119,3 +119,71 @@ void Utils::print_code_map(std::unordered_map<std::string, std::string>* code_ma
 		std::cout << entry.first << ": " << entry.second << std::endl;
 	}
 }
+
+bool Utils::write_coded_file(std::unordered_map<std::string, std::string>* code_map, std::string file_name_to_encode, std::string output_file_name) {
+	output_file_name.append(".huff");
+
+	std::ifstream file_stream;
+
+	file_stream.open(file_name_to_encode.c_str(), std::ifstream::in);
+
+	if( !file_stream ) {
+		return false;
+	}
+
+	bool result = Utils::write_tree_to_file( code_map, output_file_name );
+
+	if( !result ) return false;
+
+	std::string line;
+
+	while( std::getline(file_stream, line) ) {
+		std::string encoded_string = Utils::encode_string( code_map, line );
+		Utils::write_string_to_file(encoded_string, output_file_name);
+	}
+
+	return true;
+}
+
+std::string Utils::encode_string( std::unordered_map<std::string, std::string>* code_map, std::string string_to_encode ) {
+	std::string encoded_string = "";
+
+	int size = string_to_encode.size();
+
+	for( int i = 0; i < size; i++ ){
+		std::string x(1, string_to_encode[i]);
+		encoded_string.append( code_map->find(x)->second );
+	}
+
+	return encoded_string;
+}
+
+bool Utils::write_tree_to_file( std::unordered_map<std::string, std::string>* code_map, std::string output_file_name ) {
+	std::ofstream output_stream;
+
+	output_stream.open( output_file_name.c_str(), std::ifstream::out );
+
+	if( !output_stream ) return false;
+
+	for( auto& entry : *code_map ) {
+		output_stream << entry.first << ": " << entry.second << std::endl;
+	}
+
+	output_stream.close();
+
+	return true;
+}
+
+bool Utils::write_string_to_file( std::string string, std::string output_file_name) {
+	std::ofstream output_stream;
+
+	output_stream.open( output_file_name.c_str(), std::ifstream::app );
+
+	if( !output_stream ) return false;
+
+	output_stream << string << std::endl;
+
+	output_stream.close();
+
+	return true;
+}
