@@ -7,6 +7,10 @@ namespace UserInput {
 	std::string get_file_to_encode();
 
 	std::string get_output_file_name();
+
+	std::string get_file_to_decode();
+
+	std::string get_decoded_file_name();
 };
 
 #endif

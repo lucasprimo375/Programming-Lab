@@ -41,3 +41,9 @@ void Huffman::encode( std::string file_name_to_encode, std::string output_file_n
 		std::cout << "Your file could not be opened or does not exist" << std::endl;
 	}
 }
+
+void Huffman::decode( std::string file_name_to_decode, std::string output_file_name ) {
+	std::unordered_map<std::string, std::string>* code_map = Utils::build_code_map( file_name_to_decode );
+
+	Utils::write_decoded_file( code_map, file_name_to_decode, output_file_name );
+}

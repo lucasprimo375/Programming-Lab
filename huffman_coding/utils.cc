@@ -151,8 +151,8 @@ std::string Utils::encode_string( std::unordered_map<std::string, std::string>* 
 	int size = string_to_encode.size();
 
 	for( int i = 0; i < size; i++ ){
-		std::string x(1, string_to_encode[i]);
-		encoded_string.append( code_map->find(x)->second );
+		std::string str(1, string_to_encode[i]);
+		encoded_string.append( code_map->find(str)->second );
 	}
 
 	return encoded_string;
@@ -186,4 +186,89 @@ bool Utils::write_string_to_file( std::string string, std::string output_file_na
 	output_stream.close();
 
 	return true;
+}
+
+std::unordered_map<std::string, std::string>* Utils::build_code_map( std::string file_to_decode ) {
+	std::ifstream file_stream;
+
+	file_stream.open(file_to_decode.c_str(), std::ifstream::in);
+
+	if( !file_stream ) {
+		return nullptr;
+	}
+
+	std::unordered_map<std::string, std::string>* code_map = new std::unordered_map<std::string, std::string>();
+
+	std::string line;
+
+	while( std::getline(file_stream, line) ) {
+		std::string delimiter = ": ";
+		
+		auto pos = line.find(delimiter);
+
+		if( pos == std::string::npos ) break;
+
+		std::string token = line.substr(0, pos);
+
+		std::string code = line.substr(pos + 2, line.size() - pos);
+
+		code_map->emplace( code, token);
+	}
+
+	file_stream.close();
+
+	return code_map;
+}
+
+void Utils::write_decoded_file( std::unordered_map<std::string, std::string>* code_map, std::string file_name_to_decode, std::string output_file_name ) {
+	std::ifstream input_stream;
+	std::ofstream output_stream;
+
+	input_stream.open( file_name_to_decode.c_str(), std::ifstream::in );
+	output_stream.open( output_file_name.c_str(), std::ifstream::out );
+
+	if( ( input_stream ) && ( output_stream ) ) {
+		std::string line;
+
+		while( std::getline( input_stream, line ) ) {
+			if( Utils::is_string_decodable(line) ) {
+				output_stream << Utils::decode_string( code_map, line ) << std::endl;
+			}
+		}
+	}
+}
+
+std::string Utils::decode_string( std::unordered_map<std::string, std::string>* code_map, std::string string ) {
+	std::string aux = string;
+
+	std::string output = "";
+
+	while( aux.size() > 0 ) {
+		std::string code (1, aux[0]);
+		int i = 0;
+
+		auto iter = code_map->find(code);
+
+		while( iter == code_map->end() ) {
+			i++;
+			code += aux[i];
+			iter = code_map->find(code);
+		}
+
+		output.append( iter->second );
+
+		aux = aux.substr(i+1, aux.size() - i);
+	}
+
+	return output;
+}
+
+bool Utils::is_string_decodable( std::string string ) {
+	std::string delimiter = ": ";
+		
+	auto pos = string.find(delimiter);
+
+	if( pos == std::string::npos ) return true;
+
+	return false;
 }

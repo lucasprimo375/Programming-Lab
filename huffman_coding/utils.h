@@ -23,6 +23,11 @@ namespace Utils {
 	std::string encode_string( std::unordered_map<std::string, std::string>* code_map, std::string string_to_encode );
 	bool write_tree_to_file( std::unordered_map<std::string, std::string>* code_map, std::string output_file_name );
 	bool write_string_to_file( std::string string, std::string output_file_name);
+
+	std::unordered_map<std::string, std::string>* build_code_map( std::string file_to_decode );
+	void write_decoded_file( std::unordered_map<std::string, std::string>* code_map, std::string file_name_to_decode, std::string output_file_name );
+	std::string decode_string( std::unordered_map<std::string, std::string>* code_map, std::string string );
+	bool is_string_decodable( std::string string );
 };
 
 #endif
