@@ -1,7 +1,7 @@
 all: main.o user_input.o utils.o min_heap.o huffman_encoding.o
 	g++ -o main main.o user_input.o utils.o min_heap.o huffman_encoding.o
 
-main.o: main.cc user_input.h huffman_encoding.h
+main.o: main.cc user_input.h huffman_encoding.h utils.h
 	g++ -c main.cc
 
 utils.o: utils.cc utils.h min_heap.h node.h

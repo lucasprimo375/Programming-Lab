@@ -272,3 +272,36 @@ bool Utils::is_string_decodable( std::string string ) {
 
 	return false;
 }
+
+bool Utils::compare_files( std::string first, std::string second ) {
+	std::ifstream first_stream;
+	std::ifstream second_stream;
+
+	first_stream.open( first.c_str(), std::ifstream::in );
+	second_stream.open( second.c_str(), std::ifstream::in );
+
+	if( (!first_stream) || (!second_stream) ){
+		std::cout << std::endl << "One of the files could not be opened or does not exist" << std::endl;
+
+		return false;
+	}
+
+	std::string first_line;
+	std::string second_line;
+
+	bool once = false;
+
+	while( std::getline( first_stream, first_line ) ) {
+		once = true;
+		
+		if( !std::getline(second_stream, second_line) )
+			return false;
+
+		if( first_line != second_line ) return false;
+	}
+
+	if( (!once) && (std::getline(second_stream, second_line)) )
+		return false;
+
+	return true;
+}
