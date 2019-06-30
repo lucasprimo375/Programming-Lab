@@ -21,17 +21,19 @@ void inicializar(DicAVL &D);
 
 Noh* inserir(DicAVL &D, TC c, TV v);
 
+Noh* inserirNoh(Noh* noh, Noh* pai, TC c, TV v, Noh** n);
+
 Noh* procurar(DicAVL &D, TC c);
 
 void remover(DicAVL &D, Noh* n);
 
 void terminar(DicAVL &D);
 
-Noh* rotacaoDireita(Noh* x);
+Noh* rotacaoDireita(Noh* y);
 
 Noh* rotacaoEsquerda(Noh* x);
 
-int dif(Noh* pai);
+int dif(Noh* noh);
 
 int maiorSubAltura(Noh* pai);
 

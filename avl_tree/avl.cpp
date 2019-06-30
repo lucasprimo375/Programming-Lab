@@ -8,81 +8,53 @@ void inicializar(DicAVL &D) {
 }
 
 Noh* inserir(DicAVL &D, TC c, TV v) {
-	Noh* novoNoh = new Noh();
-	novoNoh->esq = nullptr;
-	novoNoh->dir = nullptr;
-	novoNoh->pai = nullptr;
-	novoNoh->h = 1;
-	novoNoh->chave = c;
-	novoNoh->valor = v;
+	Noh* n;
+	
+	D.raiz = inserirNoh(D.raiz, D.raiz, c, v, &n);
 
-	if( D.raiz == nullptr ) {
-		D.raiz = novoNoh;
+	return n;
+}
+
+Noh* inserirNoh(Noh* noh, Noh* pai, TC c, TV v, Noh** n){
+	if(noh == nullptr){
+		Noh* novoNoh = new Noh();
+		novoNoh->chave = c;
+		novoNoh->valor = v;
+		novoNoh->esq = nullptr;
+		novoNoh->dir = nullptr;
+		novoNoh->pai = pai;
+		novoNoh->h = 1;
+
+		*n = novoNoh;
 
 		return novoNoh;
 	}
 
-	Noh* noh = D.raiz;
-	Noh* pai = nullptr;
-	bool dir;
+	if(c > noh->chave) noh->dir = inserirNoh(noh->dir, noh, c, v, n);
+	else if (c < noh->chave) noh->esq = inserirNoh(noh->esq, noh, c, v, n);
+	else return noh;
 
-	while( noh != nullptr ) {
-		if( c == noh->chave ) return nullptr;
+	noh->h = 1 + maiorSubAltura(noh);
 
-		pai = noh;
+	int Dif = dif(noh);
 
-		if( (c > noh->chave) ) {
-			dir = true;
-			noh = noh->dir;
-		} else {
-			dir = false;
-			noh = noh->esq;
-		}
-	}
-
-	novoNoh->pai = pai;
-
-	if( novoNoh->chave > pai->chave ) pai->dir = novoNoh;
-	else pai->esq = novoNoh;
-
-	Noh* z = pai;
-
-	while( z != nullptr ) {
-		z->h = maiorSubAltura(z) + 1;
-
-		int Dif = dif(z);
-
-		bool x = true;
-
-		if (Dif > 1 && c < z->esq->chave){
-			x = false;
-			z = rotacaoDireita(z);
-		}
+	if (Dif > 1 && c < noh->esq->chave)
+        return rotacaoDireita(noh);
   
-	    if (Dif < -1 && c > z->dir->chave) {
-	    	x = false;
-			z = rotacaoEsquerda(z);
-	    }
-	  
-	    if(Dif > 1 && c > z->esq->chave) {
-	    	x = false;
-	        z->esq = rotacaoEsquerda(z->esq);  
-      		z = rotacaoDireita(z);
-	    }  
-	  
-	    if(Dif < -1 && c < z->dir->chave) {
-	    	x = false;
-	        z->dir = rotacaoDireita(z->dir);  
-	        z = rotacaoEsquerda(z);  
-	    }
-
-	    if(x)
-	    	z = z->pai;
-	    // else std::cout << "mode: " << std::endl;
-
-	}
-
-	return novoNoh;
+    if (Dif < -1 && c > noh->dir->chave)
+        return rotacaoEsquerda(noh);
+  
+    if (Dif > 1 && c > noh->esq->chave){
+        noh->esq = rotacaoEsquerda(noh->esq);
+        return rotacaoDireita(noh);
+    }
+  
+    if (Dif < -1 && c < noh->dir->chave){
+        noh->dir = rotacaoDireita(noh->dir);
+        return rotacaoEsquerda(noh);
+    }  
+  
+    return noh;
 }
 
 Noh* procurar(DicAVL &D, TC c) {
@@ -106,39 +78,39 @@ void terminar(DicAVL &D) {
 
 }
 
-Noh* rotacaoDireita(Noh* x) {
-	Noh *y = x->esq;  
-    Noh *z = y->dir;  
+Noh* rotacaoDireita(Noh* y) {
+	Noh *x = y->esq;  
+    Noh *z = x->dir;  
   
-    y->dir = x;  
-    x->esq = z;  
+    x->dir = y;  
+    y->esq = z;  
   
-    x->h = maiorSubAltura(x) + 1;
     y->h = maiorSubAltura(y) + 1;  
+    x->h = maiorSubAltura(x) + 1;  
   
-    return y;  
+    return x;
 }
 
 Noh* rotacaoEsquerda(Noh* x) {
-	Noh *y = x->dir;  
-    Noh *z = y->esq;  
+	Noh *y = x->dir;
+    Noh *z = y->esq;
   
-    y->esq = x;  
-    x->dir = z;  
+    y->esq = x;
+    x->dir = z;
   
     x->h = maiorSubAltura(x) + 1;
     y->h = maiorSubAltura(y) + 1;  
   
-    return y;  
+    return y;
 }
 
-int dif(Noh* pai) {
+int dif(Noh* noh) {
 	int esq = 0;
 	int dir = 0;
 
-	if( pai->esq != nullptr ) esq = pai->esq->h;
+	if( noh->esq != nullptr ) esq = noh->esq->h;
 
-	if( pai->dir != nullptr ) dir = pai->dir->h;
+	if( noh->dir != nullptr ) dir = noh->dir->h;
 
 	return esq - dir;
 }
