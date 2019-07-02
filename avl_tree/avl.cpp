@@ -87,34 +87,67 @@ Noh* removerNoh(Noh* noh, int chave){
 			Noh* pai = noh->pai;
 
 			if(filho == nullptr){
+				std::cout << "caso 1" << std::endl;
 				if(pai->esq == noh) pai->esq = nullptr;
 				else pai->dir = nullptr;
+
+				delete noh;
+
+				noh = nullptr;
+
+				return consertar(noh);
 			} else {
+				std::cout << "caso 2" << std::endl;
 				if(pai->esq == noh) pai->esq = filho;
 				else pai->dir = filho;
 				
 				filho->pai = pai;
-			}
 
-			delete noh;
+				delete noh;
+
+				noh = filho;
+
+				return consertar(noh);
+			}
+			delete filho;
 		} else {
-			Noh* menor = menorNoh(noh);
+			std::cout << "caso 3" << std::endl;
+			Noh* menor = menorNoh(noh->dir);
+
+			noh->chave = menor->chave;
+
+			noh->dir = removerNoh(noh->dir, menor->chave);
+
+			/*if(menor->pai != noh) menor->pai->esq = nullptr;
 
 			Noh* pai = noh->pai;
 			Noh* esq = noh->esq;
 			Noh* dir = noh->dir;
 
-			menor->pai = pai;
-			menor->dir = dir;
+			esq->pai = menor;
+			menor->esq = esq;
 
-			if(menor == esq) menor->esq = nullptr;
-			else menor->esq = esq;
+			if(menor->pai != noh) {
+				dir->pai = menor;
+				menor->dir = dir;
+			}
+
+			menor->pai = pai;
+
+			if(pai->dir == noh) pai->dir = menor;
+			else pai->esq = menor;
 
 			delete noh;
+
+			noh = menor;*/
+
+			return consertar(noh);
 		}
 	}
+}
 
-	if(noh ==  nullptr) return noh;
+Noh* consertar(Noh* noh){
+	if(noh == nullptr) return noh;
 
 	noh->h = maiorSubAltura(noh) + 1;
 
@@ -141,6 +174,19 @@ Noh* menorNoh(Noh* noh){
 	if(noh->esq == nullptr) return noh;
 
 	return menorNoh(noh->esq);
+}
+
+Noh* sucessor(Noh* noh){
+	if(noh->dir != nullptr) return menorNoh(noh->dir);
+
+	Noh* y = noh->pai;
+
+	while( ( y != nullptr ) && ( noh == y->dir ) ){
+		noh = y;
+		y = noh->pai;
+	}
+
+	return y;
 }
 
 void terminar(DicAVL &D) {
