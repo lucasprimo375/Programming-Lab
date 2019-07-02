@@ -69,13 +69,13 @@ int main() {
 
 	print(D.raiz);
 
-	Noh* noh = procurar(D, 2);
+	/*Noh* noh = procurar(D, 2);
 
 	remover(D, noh);
 
 	std::cout << std::endl;
 
-	print(D.raiz);
+	print(D.raiz);*/
 
 	return 0;
 }

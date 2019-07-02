@@ -114,11 +114,11 @@ Noh* removerNoh(Noh* noh, int chave){
 			std::cout << "caso 3" << std::endl;
 			Noh* menor = menorNoh(noh->dir);
 
-			noh->chave = menor->chave;
+			/*noh->chave = menor->chave;
 
-			noh->dir = removerNoh(noh->dir, menor->chave);
+			noh->dir = removerNoh(noh->dir, menor->chave);*/
 
-			/*if(menor->pai != noh) menor->pai->esq = nullptr;
+			if(menor->pai != noh) menor->pai->esq = nullptr;
 
 			Noh* pai = noh->pai;
 			Noh* esq = noh->esq;
@@ -139,7 +139,7 @@ Noh* removerNoh(Noh* noh, int chave){
 
 			delete noh;
 
-			noh = menor;*/
+			noh = menor;
 
 			return consertar(noh);
 		}
@@ -194,41 +194,55 @@ void terminar(DicAVL &D) {
 }
 
 Noh* rotacaoDireita(Noh* y) {
-	Noh* x = y->esq;  
-    Noh* z = x->dir;
-
-    x->dir = y;  
-    y->esq = z;
-
-    if(x->dir != nullptr)
-		x->dir->pai = y;
-
-	x->pai = y->pai;
-  
-    y->h = maiorSubAltura(y) + 1;
-    x->h = maiorSubAltura(x) + 1;
-
+	Noh* x = y->esq;
+    x->pai = y->pai;
+    y->esq = x->dir;
+ 
+    if (y->esq != NULL)
+        y->esq->pai = y;
+ 
+    x->dir = y;
     y->pai = x;
+ 
+    if (x->pai != NULL) {
+        if (x->pai->dir == y) {
+            x->pai->dir = x;
+        }
+        else {
+            x->pai->esq = x;
+        }
+    }
+ 
+    y->h = maiorSubAltura(y) + 1;
+    
+    x->h = maiorSubAltura(x) + 1;
 
     return x;
 }
 
 Noh* rotacaoEsquerda(Noh* x) {
-	Noh *y = x->dir;
-    Noh *z = y->esq;
-  
+	Noh* y = x->dir;
+    y->pai = x->pai;
+    x->dir = y->esq;
+ 
+    if (x->dir != NULL)
+        x->esq->pai = x;
+ 
     y->esq = x;
-	x->dir = z;
-
-	if(y->esq != nullptr)
-		y->esq->pai = x;
-
-	y->pai = x->pai;
-
-	x->h = maiorSubAltura(x) + 1;
-	y->h = maiorSubAltura(y) + 1;
-  
-	x->pai = y;
+    x->pai = y;
+ 
+    if (y->pai != NULL) {
+        if (y->pai->esq == x) {
+            y->pai->esq = y;
+        }
+        else {
+            y->pai->dir = y;
+        }
+    }
+ 
+    x->h = maiorSubAltura(x) + 1;
+    
+    y->h = maiorSubAltura(y) + 1;
 
     return y;
 }
