@@ -6,9 +6,11 @@ int main() {
 
 	inicializar(D);
 
-	while(true){
+	bool run = true;
+
+	while(run){
 		int escolha;
-		std::cout << std::endl << "1 - Inserir, 2 - Remover, 3 - Buscar, 4 - Print" << std::endl;
+		std::cout << std::endl << "1 - Inserir, 2 - Remover, 3 - Buscar, 4 - Print, 5 - Sair" << std::endl;
 		std::cout << ">> ";
 		std::cin >> escolha;
 
@@ -59,23 +61,16 @@ int main() {
 
 				break;
 			}
+
+			case 5:{
+				run = false;
+				break;
+			}
 		}
 	}
 
-	/*inserir(D, 1, 1);
-	inserir(D, 2, 1);
-	inserir(D, 3, 1);
-	inserir(D, 4, 1);
-
-	print(D.raiz);
-
-	Noh* noh = procurar(D, 2);
-
-	remover(D, noh);
-
-	std::cout << std::endl;
-
-	print(D.raiz);*/
+	std::cout << std::endl << "Terminando" << std::endl;
+	terminar(D);
 
 	return 0;
 }

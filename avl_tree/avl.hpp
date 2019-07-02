@@ -31,11 +31,11 @@ Noh* removerNoh(Noh* noh, int chave);
 
 Noh* menorNoh(Noh* noh);
 
-Noh* sucessor(Noh* noh);
-
 Noh* consertar(Noh* noh);
 
 void terminar(DicAVL &D);
+
+void terminarNo(Noh* n);
 
 Noh* rotacaoDireita(Noh* y);
 

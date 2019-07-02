@@ -175,21 +175,17 @@ Noh* menorNoh(Noh* noh){
 	return menorNoh(noh->esq);
 }
 
-Noh* sucessor(Noh* noh){
-	if(noh->dir != nullptr) return menorNoh(noh->dir);
-
-	Noh* y = noh->pai;
-
-	while( ( y != nullptr ) && ( noh == y->dir ) ){
-		noh = y;
-		y = noh->pai;
-	}
-
-	return y;
+void terminar(DicAVL &D) {
+	terminarNo(D.raiz);
 }
 
-void terminar(DicAVL &D) {
+void terminarNo(Noh* n){
+	if( n != nullptr ){
+		if( n->esq != nullptr ) terminarNo(n->esq);
+		if( n->dir != nullptr ) terminarNo(n->dir);
 
+		delete n;
+	}
 }
 
 Noh* rotacaoDireita(Noh* y) {
