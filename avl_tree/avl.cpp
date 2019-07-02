@@ -71,7 +71,76 @@ Noh* procurar(DicAVL &D, TC c) {
 }
 
 void remover(DicAVL &D, Noh* n) {
+	D.raiz = removerNoh(D.raiz, n->chave);
+}
 
+Noh* removerNoh(Noh* noh, int chave){
+	if(noh == nullptr) return noh;
+
+	if(chave < noh->chave)
+		noh->esq = removerNoh(noh->esq, chave);
+	else if(chave > noh->chave)
+		noh->dir = removerNoh(noh->dir, chave);
+	else {
+		if((noh->dir == nullptr) || (noh->esq == nullptr)){
+			Noh* filho = (noh->esq == nullptr ? noh->dir : noh->esq);
+			Noh* pai = noh->pai;
+
+			if(filho == nullptr){
+				if(pai->esq == noh) pai->esq = nullptr;
+				else pai->dir = nullptr;
+			} else {
+				if(pai->esq == noh) pai->esq = filho;
+				else pai->dir = filho;
+				
+				filho->pai = pai;
+			}
+
+			delete noh;
+		} else {
+			Noh* menor = menorNoh(noh);
+
+			Noh* pai = noh->pai;
+			Noh* esq = noh->esq;
+			Noh* dir = noh->dir;
+
+			menor->pai = pai;
+			menor->dir = dir;
+
+			if(menor == esq) menor->esq = nullptr;
+			else menor->esq = esq;
+
+			delete noh;
+		}
+	}
+
+	if(noh ==  nullptr) return noh;
+
+	noh->h = maiorSubAltura(noh) + 1;
+
+	int Dif = dif(noh);
+
+	if((Dif > 1) && (dif(noh->esq) >= 0)) return rotacaoDireita(noh);
+
+	if((Dif > 1) && (dif(noh->esq) < 0)){
+		noh->esq = rotacaoEsquerda(noh->esq);
+		return rotacaoDireita(noh);
+	}
+
+	if((Dif < -1) && (dif(noh->dir) <= 0)) return rotacaoEsquerda(noh);
+
+	if((Dif < -1) && (dif(noh->dir) > 0)){
+		noh->dir = rotacaoDireita(noh->dir);
+		return rotacaoEsquerda(noh);
+	}
+
+	return noh;
+}
+
+Noh* menorNoh(Noh* noh){
+	if(noh->esq == nullptr) return noh;
+
+	return menorNoh(noh->esq);
 }
 
 void terminar(DicAVL &D) {
@@ -80,24 +149,20 @@ void terminar(DicAVL &D) {
 
 Noh* rotacaoDireita(Noh* y) {
 	Noh* x = y->esq;  
-    Noh* z = x->dir;  
-  	Noh* paiY = y->pai;
-
-  	bool yDir = false;
-  	if( paiY->dir == y ) yDir = true;
+    Noh* z = x->dir;
 
     x->dir = y;  
-    y->esq = z;  
-  
-    y->h = maiorSubAltura(y) + 1;  
-    x->h = maiorSubAltura(x) + 1;  
-  
-    z->pai = y;
-    y->pai = x;
-    x->pai = paiY;
+    y->esq = z;
 
-    if(yDir) paiY->dir = x;
-    else paiY->esq = x;
+    if(x->dir != nullptr)
+		x->dir->pai = y;
+
+	x->pai = y->pai;
+  
+    y->h = maiorSubAltura(y) + 1;
+    x->h = maiorSubAltura(x) + 1;
+
+    y->pai = x;
 
     return x;
 }
@@ -105,24 +170,20 @@ Noh* rotacaoDireita(Noh* y) {
 Noh* rotacaoEsquerda(Noh* x) {
 	Noh *y = x->dir;
     Noh *z = y->esq;
-    Noh* paiX = x->pai;
-
-  	bool xDir = false;
-  	if( paiX->dir == x ) xDir = true;
   
     y->esq = x;
-    x->dir = z;
-  
-    x->h = maiorSubAltura(x) + 1;
-    y->h = maiorSubAltura(y) + 1;  
+	x->dir = z;
 
-    z->pai = x;
-    x->pai = y;
-    y->pai = paiX;
+	if(y->esq != nullptr)
+		y->esq->pai = x;
 
-    if(xDir) paiX->dir = y;
-    else paiX->esq = y;
+	y->pai = x->pai;
+
+	x->h = maiorSubAltura(x) + 1;
+	y->h = maiorSubAltura(y) + 1;
   
+	x->pai = y;
+
     return y;
 }
 

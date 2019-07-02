@@ -27,6 +27,10 @@ Noh* procurar(DicAVL &D, TC c);
 
 void remover(DicAVL &D, Noh* n);
 
+Noh* removerNoh(Noh* noh, int chave);
+
+Noh* menorNoh(Noh* noh);
+
 void terminar(DicAVL &D);
 
 Noh* rotacaoDireita(Noh* y);
