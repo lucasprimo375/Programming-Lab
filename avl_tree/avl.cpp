@@ -79,27 +79,49 @@ void terminar(DicAVL &D) {
 }
 
 Noh* rotacaoDireita(Noh* y) {
-	Noh *x = y->esq;  
-    Noh *z = x->dir;  
-  
+	Noh* x = y->esq;  
+    Noh* z = x->dir;  
+  	Noh* paiY = y->pai;
+
+  	bool yDir = false;
+  	if( paiY->dir == y ) yDir = true;
+
     x->dir = y;  
     y->esq = z;  
   
     y->h = maiorSubAltura(y) + 1;  
     x->h = maiorSubAltura(x) + 1;  
   
+    z->pai = y;
+    y->pai = x;
+    x->pai = paiY;
+
+    if(yDir) paiY->dir = x;
+    else paiY->esq = x;
+
     return x;
 }
 
 Noh* rotacaoEsquerda(Noh* x) {
 	Noh *y = x->dir;
     Noh *z = y->esq;
+    Noh* paiX = x->pai;
+
+  	bool xDir = false;
+  	if( paiX->dir == x ) xDir = true;
   
     y->esq = x;
     x->dir = z;
   
     x->h = maiorSubAltura(x) + 1;
     y->h = maiorSubAltura(y) + 1;  
+
+    z->pai = x;
+    x->pai = y;
+    y->pai = paiX;
+
+    if(xDir) paiX->dir = y;
+    else paiX->esq = y;
   
     return y;
 }
