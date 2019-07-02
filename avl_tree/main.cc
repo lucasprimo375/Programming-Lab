@@ -6,7 +6,7 @@ int main() {
 
 	inicializar(D);
 
-	/*while(true){
+	while(true){
 		int escolha;
 		std::cout << std::endl << "1 - Inserir, 2 - Remover, 3 - Buscar, 4 - Print" << std::endl;
 		std::cout << ">> ";
@@ -60,16 +60,16 @@ int main() {
 				break;
 			}
 		}
-	}*/
+	}
 
-	inserir(D, 1, 1);
+	/*inserir(D, 1, 1);
 	inserir(D, 2, 1);
 	inserir(D, 3, 1);
 	inserir(D, 4, 1);
 
 	print(D.raiz);
 
-	/*Noh* noh = procurar(D, 2);
+	Noh* noh = procurar(D, 2);
 
 	remover(D, noh);
 

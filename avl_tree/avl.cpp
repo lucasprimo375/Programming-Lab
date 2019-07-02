@@ -87,7 +87,6 @@ Noh* removerNoh(Noh* noh, int chave){
 			Noh* pai = noh->pai;
 
 			if(filho == nullptr){
-				std::cout << "caso 1" << std::endl;
 				if(pai->esq == noh) pai->esq = nullptr;
 				else pai->dir = nullptr;
 
@@ -97,7 +96,6 @@ Noh* removerNoh(Noh* noh, int chave){
 
 				return consertar(noh);
 			} else {
-				std::cout << "caso 2" << std::endl;
 				if(pai->esq == noh) pai->esq = filho;
 				else pai->dir = filho;
 				
@@ -111,12 +109,7 @@ Noh* removerNoh(Noh* noh, int chave){
 			}
 			delete filho;
 		} else {
-			std::cout << "caso 3" << std::endl;
 			Noh* menor = menorNoh(noh->dir);
-
-			/*noh->chave = menor->chave;
-
-			noh->dir = removerNoh(noh->dir, menor->chave);*/
 
 			if(menor->pai != noh) menor->pai->esq = nullptr;
 
@@ -134,8 +127,14 @@ Noh* removerNoh(Noh* noh, int chave){
 
 			menor->pai = pai;
 
-			if(pai->dir == noh) pai->dir = menor;
-			else pai->esq = menor;
+			if( pai != nullptr ){
+				if(pai->dir == noh) {
+					pai->dir = menor;
+				}
+				else {
+					pai->esq = menor;
+				}
+			}
 
 			delete noh;
 
