@@ -1,5 +1,6 @@
 #include <cmath>
 #include <iostream>
+#include <string>
 
 #include "avl.hpp"
 
@@ -71,6 +72,8 @@ Noh* procurar(DicAVL &D, TC c) {
 }
 
 void remover(DicAVL &D, Noh* n) {
+	if(n == nullptr) return;
+
 	D.raiz = removerNoh(D.raiz, n->chave);
 }
 
@@ -111,8 +114,10 @@ Noh* removerNoh(Noh* noh, int chave){
 		} else {
 			Noh* menor = menorNoh(noh->dir);
 
-			if(menor->pai != noh) menor->pai->esq = nullptr;
-
+			if(menor->pai != noh) {
+				menor->pai->esq = nullptr;
+			}
+			
 			Noh* pai = noh->pai;
 			Noh* esq = noh->esq;
 			Noh* dir = noh->dir;
@@ -152,14 +157,18 @@ Noh* consertar(Noh* noh){
 
 	int Dif = dif(noh);
 
-	if((Dif > 1) && (dif(noh->esq) >= 0)) return rotacaoDireita(noh);
+	if((Dif > 1) && (dif(noh->esq) >= 0)){
+		return rotacaoDireita(noh);	
+	} 
 
 	if((Dif > 1) && (dif(noh->esq) < 0)){
 		noh->esq = rotacaoEsquerda(noh->esq);
 		return rotacaoDireita(noh);
 	}
 
-	if((Dif < -1) && (dif(noh->dir) <= 0)) return rotacaoEsquerda(noh);
+	if((Dif < -1) && (dif(noh->dir) <= 0)) {
+		return rotacaoEsquerda(noh);
+	}
 
 	if((Dif < -1) && (dif(noh->dir) > 0)){
 		noh->dir = rotacaoDireita(noh->dir);
@@ -188,31 +197,29 @@ void terminarNo(Noh* n){
 	}
 }
 
-Noh* rotacaoDireita(Noh* y) {
-	Noh* x = y->esq;
-    x->pai = y->pai;
-    y->esq = x->dir;
+Noh* rotacaoDireita(Noh* x) {
+	Noh* y = x->esq;
+    y->pai = x->pai;
+    x->esq = y->dir;
  
-    if (y->esq != NULL)
-        y->esq->pai = y;
+    if (x->esq != nullptr)
+        x->esq->pai = x;
  
-    x->dir = y;
-    y->pai = x;
+    y->dir = x;
+    x->pai = y;
  
-    if (x->pai != NULL) {
-        if (x->pai->dir == y) {
-            x->pai->dir = x;
+    if (y->pai != nullptr) {
+        if (y->pai->dir == x) {
+            y->pai->dir = y;
         }
         else {
-            x->pai->esq = x;
+            y->pai->esq = y;
         }
     }
  
-    y->h = maiorSubAltura(y) + 1;
-    
     x->h = maiorSubAltura(x) + 1;
-
-    return x;
+    y->h = maiorSubAltura(y) + 1;
+    return y;
 }
 
 Noh* rotacaoEsquerda(Noh* x) {
@@ -220,25 +227,23 @@ Noh* rotacaoEsquerda(Noh* x) {
     y->pai = x->pai;
     x->dir = y->esq;
  
-    if (x->dir != NULL)
-        x->esq->pai = x;
+    if (x->dir != nullptr)
+        x->dir->pai = x;
  
     y->esq = x;
     x->pai = y;
  
-    if (y->pai != NULL) {
-        if (y->pai->esq == x) {
-            y->pai->esq = y;
+    if (y->pai != nullptr) {
+        if (y->pai->dir == x) {
+            y->pai->dir = y;
         }
         else {
-            y->pai->dir = y;
+            y->pai->esq = y;
         }
     }
  
     x->h = maiorSubAltura(x) + 1;
-    
     y->h = maiorSubAltura(y) + 1;
-
     return y;
 }
 
@@ -265,11 +270,20 @@ int maiorSubAltura(Noh* pai) {
 }
 
 void print(Noh* n) {
-	std::cout << n->chave << std::endl;
+	std::string a;
+	std::cout << "root: " << n->chave << std::endl;
 
-	if( n->esq != nullptr )
+	//std::cin.ignore();
+
+	if( n->esq != nullptr ){
+		std::cout << "esq: " << n->esq->chave << std::endl;
 		print( n->esq );
+		std::cout << "leaving esq" << std::endl;
+	}
 	
-	if( n->dir != nullptr )
+	if( n->dir != nullptr ){
+		std::cout << "dir: " << n->dir->chave << std::endl;
 		print( n->dir );
+		std::cout << "leaving dir" << std::endl;
+	}
 }

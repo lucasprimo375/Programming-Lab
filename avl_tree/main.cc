@@ -69,8 +69,5 @@ int main() {
 		}
 	}
 
-	std::cout << std::endl << "Terminando" << std::endl;
-	terminar(D);
-
 	return 0;
 }
