@@ -40,31 +40,28 @@ std::unordered_map<char, int>* Utils::get_frequency_table(std::string file_name)
 
 	std::string line;
 
-	while( std::getline(file_stream, line) ) {
-	    Utils::insert_characters(frequency_table, line);
+	char Char;
+
+	while( file_stream >> std::noskipws >> Char ) {
+	    Utils::insert_characters(frequency_table, Char);
 	}
 
 	return frequency_table;
 }
 
-void Utils::insert_characters(std::unordered_map<char, int>* frequency_table, std::string line) {
-	int line_size = line.size();
+void Utils::insert_characters(std::unordered_map<char, int>* frequency_table, char Char) {
+	auto char_iterator = frequency_table->find( Char );
 
-	for( int i = 0; i < line_size; i++ ) {
-		char char_i = line[i];
-		auto char_iterator = frequency_table->find( char_i );
+	if( char_iterator == frequency_table->end() ) {
+		frequency_table->emplace( Char, 1 );
+	} else {
+		int char_count = char_iterator->second;
 
-		if( char_iterator == frequency_table->end() ) {
-			frequency_table->emplace( char_i, 1 );
-		} else {
-			int char_count = char_iterator->second;
+		char_count++;
 
-			char_count++;
+		frequency_table->erase( Char );
 
-			frequency_table->erase( char_i );
-
-			frequency_table->emplace( char_i, char_count);
-		}
+		frequency_table->emplace( Char, char_count);
 	}
 }
 
@@ -125,22 +122,74 @@ bool Utils::write_coded_file(std::unordered_map<std::string, std::string>* code_
 
 	std::ifstream file_stream;
 
-	file_stream.open(file_name_to_encode.c_str(), std::ifstream::in);
+	file_stream.open(file_name_to_encode, std::ios::binary);
 
-	if( !file_stream ) {
+	std::ofstream output_stream;
+	output_stream.open( output_file_name, std::ios::binary );
+
+	if( (!file_stream) || (!output_stream) ) {
 		return false;
 	}
 
-	bool result = Utils::write_tree_to_file( code_map, output_file_name );
+	/*bool result = Utils::write_tree_to_file( code_map, output_file_name );
 
-	if( !result ) return false;
+	if( !result ) return false;*/
 
 	std::string line;
 
-	while( std::getline(file_stream, line) ) {
-		std::string encoded_string = Utils::encode_string( code_map, line );
-		Utils::write_string_to_file(encoded_string, output_file_name);
+	char readChar;
+	std::string charCode;
+	int byteCounter = 0;
+	char byte_to_write = 0;
+
+	char leftOverBits = 0;
+	std::streamoff leftOverBitsAddress = output_stream.tellp();
+	output_stream.write( (char*)&leftOverBits, sizeof(char) );
+
+	int number_of_bytes = 0;
+	std::streamoff number_of_bytes_address = output_stream.tellp();
+	output_stream.write( (char*)&number_of_bytes, sizeof(int) );
+	
+	while( file_stream >> std::noskipws >> readChar ) {
+		std::string charStrAux(1, readChar);
+		charCode = code_map->find(charStrAux)->second;
+
+		int codeLength = charCode.length();
+
+		for( int i = 0; i < codeLength; i++ ){
+			if( byteCounter == 8 ){
+				if( file_stream.eof() ) break;
+
+				output_stream.write( &byte_to_write, sizeof(char) );
+
+				byteCounter = 0;
+				byte_to_write = 0;
+				number_of_bytes++;
+			}
+
+			byte_to_write = byte_to_write << 1;
+
+			if( charCode[i] == '1' ){
+				byte_to_write = byte_to_write | (char) 1;
+			}
+
+			byteCounter++;
+		}
 	}
+
+	if( byteCounter != 8 ) {
+		leftOverBits = (char) 8 - byteCounter;
+		number_of_bytes++;
+		byte_to_write = byte_to_write << leftOverBits;
+
+		output_stream.write( (char*)&byte_to_write, sizeof(char) );
+		output_stream.seekp( leftOverBitsAddress );
+		output_stream.write( &leftOverBits, sizeof(char) );
+		output_stream.seekp( number_of_bytes_address );
+		output_stream.write( (char*)&number_of_bytes, sizeof(int) );
+	}
+
+	file_stream.close();
 
 	return true;
 }
