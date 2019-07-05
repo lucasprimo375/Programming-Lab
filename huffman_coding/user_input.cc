@@ -33,7 +33,7 @@ std::string UserInput::get_file_to_encode() {
 std::string UserInput::get_output_file_name() {
 	std::string output_file_name;
 	
-	std::cout << std::endl << "Input output file name" << std::endl;
+	std::cout << std::endl << "Input output file name, without any extension" << std::endl;
 	std::cout << ">> ";
 	std::cin >> output_file_name;
 

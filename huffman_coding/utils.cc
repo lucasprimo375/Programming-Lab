@@ -367,3 +367,122 @@ bool Utils::compare_files( std::string first, std::string second ) {
 
 	return true;
 }
+
+void Utils::decode( std::string file_name_to_decode, std::string output_file_name ){
+	std::ifstream input_stream;
+	input_stream.open( file_name_to_decode, std::ios::binary );
+	if( !input_stream )	{
+		std::cout << std::endl << "Your file to decode could not be opened or does not exist" << std::endl;
+		return;
+	}
+
+	if( input_stream.peek() == std::ifstream::traits_type::eof() ) {
+		std::ofstream output_stream;
+		output_stream.open( output_file_name, std::ios::binary );
+		input_stream.close();
+		output_stream.close();
+		return;
+	}
+
+	int number_of_nodes;
+	input_stream.read( (char*)&number_of_nodes, sizeof(int) );
+
+	std::string output_string;
+	for( int i = 0; i < number_of_nodes; i++ ) {
+		char byte;
+		input_stream.read( &byte, sizeof(char) );
+		output_string += byte;
+	}
+
+	int position = 0;
+	node* n;
+	n = Utils::build_tree( output_string, position, n );
+
+	node* root = n;
+
+	char leftOverBits;
+	int number_of_bytes;
+
+	input_stream.read( &leftOverBits, sizeof(char) );
+	input_stream.read( (char*)&number_of_bytes, sizeof(int) );
+
+	std::ofstream output_stream;
+	output_stream.open( output_file_name, std::ios::binary );
+	if( !output_stream ) {
+		std::cout << std::endl << "Your output file could not be opened or created" << std::endl;
+		return;
+	}
+
+	char byte_to_read = 0;
+	input_stream.read( (char*)&byte_to_read, sizeof(char) );
+
+	int bits_counter = 0;
+	long bits_iterator = 0;
+	long total_bits = ((number_of_bytes - 1) * 8) + leftOverBits;
+	int byte_counter = 0;
+
+	while( !input_stream.eof() ) {
+		int bit = byte_to_read >> (7 - bits_counter) & (char) 1;
+
+		if( bit == 1 ) {
+			n = n->right;
+		} else {
+			n = n->left;
+		}
+
+		bits_counter++;
+		bits_iterator++;
+
+		if( (n->left == nullptr) && (n->right == nullptr) ) {
+			output_stream.write( &n->character[0], sizeof(char) );
+
+			if( (byte_counter == number_of_bytes - 1) && (bits_counter == 8 - leftOverBits) ) break;
+
+			n = root;
+		}
+
+		if( bits_counter == 8 ) {
+			input_stream.read( (char*)&byte_to_read, sizeof(char) );
+			bits_counter = 0;
+			byte_counter++;
+		}
+	}
+
+	input_stream.close();
+	output_stream.close();
+}
+
+node* Utils::build_tree( std::string output_string, int& position, node* n ) {
+	char character = output_string[position];
+
+	if( character == NULL_NODE ) {
+		return n;
+	}
+
+	if( character == LEAF_NODE ) {
+		position++;
+		character = output_string[position];		
+		position++;
+		
+		n = new node();
+		n->character = character;
+		n->frequency = 0;
+		n->left = nullptr;
+		n->right = nullptr;
+
+		return n;
+	}
+
+	n = new node();
+	n->character = character;
+	n->frequency = 0;
+	n->left = nullptr;
+	n->right = nullptr;
+
+	position++;
+
+	n->left = Utils::build_tree(output_string, position, n);
+	n->right = Utils::build_tree(output_string, position, n);
+
+	return n;
+}

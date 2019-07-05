@@ -32,6 +32,10 @@ namespace Utils {
 	bool is_string_decodable( std::string string );
 
 	bool compare_files( std::string first, std::string second );
+
+	void decode( std::string file_name_to_decode, std::string output_file_name );
+
+	node* build_tree( std::string output_string, int& position, node* n );
 };
 
 #endif
