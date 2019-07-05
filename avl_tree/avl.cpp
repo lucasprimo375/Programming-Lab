@@ -77,7 +77,7 @@ void remover(DicAVL &D, Noh* n) {
 	D.raiz = removerNoh(D.raiz, n->chave);
 }
 
-Noh* removerNoh(Noh* noh, int chave){
+Noh* removerNoh(Noh* noh, TC chave){
 	if(noh == nullptr) return noh;
 
 	if(chave < noh->chave)
@@ -110,7 +110,6 @@ Noh* removerNoh(Noh* noh, int chave){
 
 				return consertar(noh);
 			}
-			delete filho;
 		} else {
 			Noh* menor = menorNoh(noh->dir);
 

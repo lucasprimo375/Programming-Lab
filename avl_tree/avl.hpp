@@ -27,7 +27,7 @@ Noh* procurar(DicAVL &D, TC c);
 
 void remover(DicAVL &D, Noh* n);
 
-Noh* removerNoh(Noh* noh, int chave);
+Noh* removerNoh(Noh* noh, TC chave);
 
 Noh* menorNoh(Noh* noh);
 
