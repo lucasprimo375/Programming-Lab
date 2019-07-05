@@ -264,25 +264,27 @@ int maiorSubAltura(Noh* pai) {
 
 	if( pai->esq != nullptr ) esq = pai->esq->h;
 
-	if( pai->dir != nullptr ) esq = pai->dir->h;
+	if( pai->dir != nullptr ) dir = pai->dir->h;
 
-	return esq > dir ? esq : dir;	
+	if(esq > dir) return esq;
+
+	return dir;
 }
 
 void print(Noh* n) {
 	std::string a;
-	std::cout << "root: " << n->chave << std::endl;
+	std::cout << "root: " << n->chave << ", h: " << n->h << std::endl;
 
 	//std::cin.ignore();
 
 	if( n->esq != nullptr ){
-		std::cout << "esq: " << n->esq->chave << std::endl;
+		std::cout << "esq" << std::endl;
 		print( n->esq );
 		std::cout << "leaving esq" << std::endl;
 	}
 	
 	if( n->dir != nullptr ){
-		std::cout << "dir: " << n->dir->chave << std::endl;
+		std::cout << "dir" << std::endl;
 		print( n->dir );
 		std::cout << "leaving dir" << std::endl;
 	}
