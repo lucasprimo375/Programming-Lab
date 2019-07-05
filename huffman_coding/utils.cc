@@ -2,10 +2,15 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <vector>
 
 #include "utils.h"
 #include "min_heap.h"
 #include "node.h"
+
+#define INTERNAL_NODE '@'
+#define NULL_NODE '&'
+#define LEAF_NODE '*'
 
 void Utils::print_file(std::string file_name) {
 	std::ifstream file_stream;
@@ -117,7 +122,7 @@ void Utils::print_code_map(std::unordered_map<std::string, std::string>* code_ma
 	}
 }
 
-bool Utils::write_coded_file(std::unordered_map<std::string, std::string>* code_map, std::string file_name_to_encode, std::string output_file_name) {
+bool Utils::write_coded_file(std::unordered_map<std::string, std::string>* code_map, std::string file_name_to_encode, std::string output_file_name, node* treeRoot) {
 	output_file_name.append(".huff");
 
 	std::ifstream file_stream;
@@ -131,9 +136,7 @@ bool Utils::write_coded_file(std::unordered_map<std::string, std::string>* code_
 		return false;
 	}
 
-	/*bool result = Utils::write_tree_to_file( code_map, output_file_name );
-
-	if( !result ) return false;*/
+	Utils::write_tree_to_file( output_stream, treeRoot );
 
 	std::string line;
 
@@ -191,6 +194,8 @@ bool Utils::write_coded_file(std::unordered_map<std::string, std::string>* code_
 
 	file_stream.close();
 
+	output_stream.close();
+
 	return true;
 }
 
@@ -207,20 +212,28 @@ std::string Utils::encode_string( std::unordered_map<std::string, std::string>* 
 	return encoded_string;
 }
 
-bool Utils::write_tree_to_file( std::unordered_map<std::string, std::string>* code_map, std::string output_file_name ) {
-	std::ofstream output_stream;
+void Utils::write_tree_to_file( std::ofstream& output_stream, node* treeRoot ) {
+	std::vector<char> tree;
 
-	output_stream.open( output_file_name.c_str(), std::ifstream::out );
+	Utils::write_tree(treeRoot, tree);
 
-	if( !output_stream ) return false;
+	int treeSize = tree.size();
 
-	for( auto& entry : *code_map ) {
-		output_stream << entry.first << ": " << entry.second << std::endl;
+	output_stream.write((char*)&treeSize, sizeof(int));
+	output_stream.write(tree.data(), treeSize);
+}
+
+void Utils::write_tree(node* n, std::vector<char>& tree) {
+	if( n == nullptr ) {
+		tree.push_back( NULL_NODE );
+	} else if( (n->left == nullptr) && (n->right == nullptr) ) {
+		tree.push_back( LEAF_NODE );
+		tree.push_back( n->character[0] );
+	} else {
+		tree.push_back( INTERNAL_NODE );
+		Utils::write_tree(n->left, tree);
+		Utils::write_tree(n->right, tree);
 	}
-
-	output_stream.close();
-
-	return true;
 }
 
 bool Utils::write_string_to_file( std::string string, std::string output_file_name) {

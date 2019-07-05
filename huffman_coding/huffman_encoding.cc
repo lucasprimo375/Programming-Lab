@@ -35,7 +35,7 @@ void Huffman::encode( std::string file_name_to_encode, std::string output_file_n
 		Utils::generate_huffman_code( root, root, code, code_map );
 	}
 
-	bool result = Utils::write_coded_file( code_map, file_name_to_encode, output_file_name );
+	bool result = Utils::write_coded_file( code_map, file_name_to_encode, output_file_name, root );
 
 	if( !result ) {
 		std::cout << "Your file could not be opened or does not exist" << std::endl;
